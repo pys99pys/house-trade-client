@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 13px;
+}
+
+body,
+input,
+select,
+button {
+  font-family: "Noto Sans KR", sans-serif;
+}
