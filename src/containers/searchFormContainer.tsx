@@ -1,17 +1,12 @@
 import { FC, useCallback, useState } from "react";
-import landCodes from "../jsons/landCodes.json";
 import SearchForm from "../components/SearchForm";
 import { SearchForm as SearchFormType } from "../models/searchFormModels";
 
-interface SearchFormContainerProps {}
+interface SearchFormContainerProps {
+  onSubmit: (date: string, stateCode: string) => void;
+}
 
-const getFirstStateItem = (cityName: string): string => {
-  return (
-    landCodes.find((item) => item.name === cityName)?.children?.[0].code || ""
-  );
-};
-
-const SearchFormContainer: FC<SearchFormContainerProps> = () => {
+const SearchFormContainer: FC<SearchFormContainerProps> = ({ onSubmit }) => {
   const [form, setForm] = useState<SearchFormType>({
     date: new Date().toISOString().substring(0, 7),
     cityName: "",
@@ -19,12 +14,19 @@ const SearchFormContainer: FC<SearchFormContainerProps> = () => {
   });
 
   const onChangeDate = useCallback(
-    (date: string) =>
-      setForm({
+    (date: string) => {
+      const afterForm = {
         ...form,
         date,
-      }),
-    [form]
+      };
+
+      setForm(afterForm);
+
+      if (afterForm.date && afterForm.stateCode) {
+        onSubmit(afterForm.date, afterForm.stateCode);
+      }
+    },
+    [form, onSubmit]
   );
 
   const onChangeCityName = useCallback(
@@ -32,19 +34,26 @@ const SearchFormContainer: FC<SearchFormContainerProps> = () => {
       setForm({
         ...form,
         cityName,
-        stateCode: getFirstStateItem(cityName),
+        stateCode: "",
       });
     },
     [form]
   );
 
   const onChangeStateCode = useCallback(
-    (stateCode: string) =>
-      setForm({
+    (stateCode: string) => {
+      const afterForm = {
         ...form,
         stateCode,
-      }),
-    [form]
+      };
+
+      setForm(afterForm);
+
+      if (afterForm.date && afterForm.stateCode) {
+        onSubmit(afterForm.date, afterForm.stateCode);
+      }
+    },
+    [form, onSubmit]
   );
 
   return (
