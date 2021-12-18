@@ -1,10 +1,10 @@
 import { FC } from "react";
 import ItemTable from "../components/ItemTable";
 
-interface itemTableContainerProps {}
+interface ItemTableContainerProps {}
 
-const itemTableContainer: FC<itemTableContainerProps> = () => {
+const ItemTableContainer: FC<ItemTableContainerProps> = () => {
   return <ItemTable />;
 };
 
-export default itemTableContainer;
+export default ItemTableContainer;

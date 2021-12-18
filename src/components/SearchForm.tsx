@@ -1,28 +1,41 @@
 import { FC } from "react";
+import { SearchForm as SearchFormType } from "../models/searchFormModels";
 import Button from "../elements/Button";
 import Input from "../elements/Input";
-import Select from "../elements/Select";
+import CitySelect from "./CitySelect";
+import StateSelect from "./StateSelect";
 
-interface SearchFormProps {}
+interface SearchFormProps {
+  form: SearchFormType;
+  onChangeDate: (date: string) => void;
+  onChangeCityName: (cityName: string) => void;
+  onChangeStateCode: (stateCode: string) => void;
+}
 
-const SearchForm: FC<SearchFormProps> = () => {
+const SearchForm: FC<SearchFormProps> = ({
+  form,
+  onChangeDate,
+  onChangeCityName,
+  onChangeStateCode,
+}) => {
   return (
     <div className="flex">
       <ul className="flex">
         <li className="mr-2">
-          <Input type="month" />
+          <Input type="month" value={form.date} onChange={onChangeDate} />
         </li>
         <li className="mr-2">
-          <Select defaultLabel="시/도 선택" />
+          <CitySelect value={form.cityName} onChange={onChangeCityName} />
         </li>
         <li className="mr-2">
-          <Select defaultLabel="시/군/구 선택" />
-        </li>
-        <li className="mr-2">
-          <Button color="primary">검색</Button>
+          <StateSelect
+            cityName={form.cityName}
+            value={form.stateCode}
+            onChange={onChangeStateCode}
+          />
         </li>
         <li>
-          <Button color="yellow">즐겨찾기</Button>
+          <Button color="yellow">즐겨찾기 추가</Button>
         </li>
       </ul>
     </div>
