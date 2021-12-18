@@ -34,9 +34,18 @@ const SearchForm: FC<SearchFormProps> = ({
             onChange={onChangeStateCode}
           />
         </li>
-        <li>
-          <Button color="yellow">즐겨찾기 추가</Button>
-        </li>
+        {form.stateCode && (
+          <li>
+            <Button
+              color="yellow"
+              onClick={() => {
+                alert("구현중");
+              }}
+            >
+              즐겨찾기 추가
+            </Button>
+          </li>
+        )}
       </ul>
     </div>
   );

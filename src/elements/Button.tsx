@@ -6,9 +6,10 @@ import { getBackgroundColor } from "../utils/tailwindUtils";
 
 interface ButtonProps {
   color?: Color;
+  onClick?: () => void;
 }
 
-const Button: FC<ButtonProps> = ({ color = "button", children }) => {
+const Button: FC<ButtonProps> = ({ color = "button", onClick, children }) => {
   return (
     <button
       className={classnames(
@@ -17,6 +18,7 @@ const Button: FC<ButtonProps> = ({ color = "button", children }) => {
         getBackgroundColor(color),
         "px-5"
       )}
+      onClick={onClick}
     >
       {children}
     </button>

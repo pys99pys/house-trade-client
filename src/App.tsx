@@ -12,7 +12,7 @@ function App() {
     stateCode: string;
   } | null>(null);
 
-  const { data } = useQuery(
+  const { isLoading, data } = useQuery(
     ["tradneItems", queryParams?.date, queryParams?.stateCode],
     () => getTradeItems(queryParams?.date || "", queryParams?.stateCode || ""),
     {
@@ -30,13 +30,13 @@ function App() {
     []
   );
 
-  console.log(data);
-
   return (
     <AppLayout
       searchForm={<SearchFormContainer onSubmit={onSubmit} />}
-      itemCount={<ItemCount count={100} />}
-      itemTable={<ItemTableContainer />}
+      itemCount={<ItemCount count={data?.length || 0} />}
+      itemTable={
+        <ItemTableContainer isLoading={isLoading} items={data || []} />
+      }
     />
   );
 }
