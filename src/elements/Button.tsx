@@ -1,22 +1,38 @@
 import { FC } from "react";
 import classnames from "classnames";
 import { Color } from "../models/buttonModels";
-import { rounded, inputAndButtonHeightBase } from "../styles/variables";
+import {
+  rounded,
+  inputAndButtonHeightBase,
+  inputAndButtonHeightSmall,
+} from "../styles/variables";
 import { getBackgroundColor } from "../utils/tailwindUtils";
 
 interface ButtonProps {
+  size?: "default" | "small";
   color?: Color;
   onClick?: () => void;
 }
 
-const Button: FC<ButtonProps> = ({ color = "button", onClick, children }) => {
+const Button: FC<ButtonProps> = ({
+  size = "default",
+  color = "button",
+  onClick,
+  children,
+}) => {
   return (
     <button
       className={classnames(
-        inputAndButtonHeightBase,
         rounded,
         getBackgroundColor(color),
-        "px-5"
+        "cursor-pointer",
+        {
+          [inputAndButtonHeightBase]: size === "default",
+          [inputAndButtonHeightSmall]: size === "small",
+          "px-5": size === "default",
+          "px-3": size === "small",
+          "text-sm": size === "small",
+        }
       )}
       onClick={onClick}
     >

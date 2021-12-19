@@ -7,6 +7,7 @@ import StateSelect from "./StateSelect";
 
 interface SearchFormProps {
   form: SearchFormType;
+  onSaveFilter: () => void;
   onChangeDate: (date: string) => void;
   onChangeCityName: (cityName: string) => void;
   onChangeStateCode: (stateCode: string) => void;
@@ -14,6 +15,7 @@ interface SearchFormProps {
 
 const SearchForm: FC<SearchFormProps> = ({
   form,
+  onSaveFilter,
   onChangeDate,
   onChangeCityName,
   onChangeStateCode,
@@ -36,13 +38,8 @@ const SearchForm: FC<SearchFormProps> = ({
         </li>
         {form.stateCode && (
           <li>
-            <Button
-              color="yellow"
-              onClick={() => {
-                alert("구현중");
-              }}
-            >
-              즐겨찾기 추가
+            <Button color="yellow" onClick={onSaveFilter}>
+              필터 저장
             </Button>
           </li>
         )}

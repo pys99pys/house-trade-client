@@ -1,15 +1,42 @@
-import ItemCount from "./components/ItemCount";
 import ItemTableContainer from "./containers/ItemTableContainer";
-import SearchFormContainer from "./containers/SearchFormContainer";
-import useData from "./hooks/useData";
 import AppLayout from "./layouts/AppLayout";
+import SearchForm from "./components/SearchForm";
+import FilterItems from "./components/FilterItems";
+import ItemCount from "./components/ItemCount";
+import useApp from "./hooks/useApp";
 
 function App() {
-  const { isLoading, tradeItems, onSubmit } = useData();
+  const {
+    isLoading,
+    searchForm,
+    tradeItems,
+    filters,
+    onChangeDate,
+    onChangeCityName,
+    onChangeStateCode,
+    onCreateFilter,
+    onRemoveFilter,
+    onFetchWithStateCode,
+  } = useApp();
 
   return (
     <AppLayout
-      searchForm={<SearchFormContainer onSubmit={onSubmit} />}
+      searchForm={
+        <SearchForm
+          form={searchForm}
+          onSaveFilter={onCreateFilter}
+          onChangeDate={onChangeDate}
+          onChangeCityName={onChangeCityName}
+          onChangeStateCode={onChangeStateCode}
+        />
+      }
+      filterItems={
+        <FilterItems
+          items={filters}
+          onSelect={onFetchWithStateCode}
+          onRemove={onRemoveFilter}
+        />
+      }
       itemCount={<ItemCount count={tradeItems.length} />}
       itemTable={
         <ItemTableContainer isLoading={isLoading} items={tradeItems} />

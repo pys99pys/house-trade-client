@@ -1,4 +1,5 @@
 export const inputAndButtonHeightBase = "h-14";
+export const inputAndButtonHeightSmall = "h-10";
 export const border = "border border-gray-200";
 export const rounded = "rounded-md";
 

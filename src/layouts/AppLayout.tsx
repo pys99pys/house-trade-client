@@ -2,12 +2,14 @@ import { FC } from "react";
 
 interface AppLayoutProps {
   searchForm: JSX.Element;
+  filterItems: JSX.Element;
   itemCount: JSX.Element;
   itemTable: JSX.Element;
 }
 
 const AppLayout: FC<AppLayoutProps> = ({
   searchForm,
+  filterItems,
   itemCount,
   itemTable,
 }) => {
@@ -19,7 +21,8 @@ const AppLayout: FC<AppLayoutProps> = ({
 
       <main className="m-auto pb-24" style={{ width: "1024px" }}>
         {searchForm}
-        <div className="mt-10">{itemCount}</div>
+        <div className="mt-3">{filterItems}</div>
+        <div className="mt-5">{itemCount}</div>
         <div className="mt-2">{itemTable}</div>
       </main>
     </>

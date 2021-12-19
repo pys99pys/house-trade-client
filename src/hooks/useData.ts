@@ -3,12 +3,12 @@ import { useQuery } from "react-query";
 import { getTradeItems } from "../apis/tradeItemApis";
 import { TradeItem } from "../models/tradeItemModels";
 
-type OnSubmitHandler = (date: string, stateCode: string) => void;
+type onFetchHandler = (date: string, stateCode: string) => void;
 
 interface ReturnType {
   isLoading: boolean;
   tradeItems: TradeItem[];
-  onSubmit: OnSubmitHandler;
+  onFetch: onFetchHandler;
 }
 
 const useData = (): ReturnType => {
@@ -26,7 +26,7 @@ const useData = (): ReturnType => {
     }
   );
 
-  const onSubmit: OnSubmitHandler = useCallback(
+  const onFetch: onFetchHandler = useCallback(
     (date, stateCode) =>
       setQueryParams({
         date,
@@ -38,7 +38,7 @@ const useData = (): ReturnType => {
   return {
     isLoading,
     tradeItems: data || [],
-    onSubmit,
+    onFetch,
   };
 };
 
