@@ -2,7 +2,7 @@ import ItemTableContainer from "./containers/ItemTableContainer";
 import AppLayout from "./layouts/AppLayout";
 import SearchForm from "./components/SearchForm";
 import FilterItems from "./components/FilterItems";
-import ItemCount from "./components/ItemCount";
+import Summary from "./components/Summary";
 import useApp from "./hooks/useApp";
 
 function App() {
@@ -37,7 +37,7 @@ function App() {
           onRemove={onRemoveFilter}
         />
       }
-      itemCount={<ItemCount count={tradeItems.length} />}
+      summary={<Summary count={tradeItems.length} />}
       itemTable={
         <ItemTableContainer isLoading={isLoading} items={tradeItems} />
       }

@@ -1,10 +1,10 @@
 import { FC } from "react";
 
-interface ItemCountProps {
+interface SummaryProps {
   count: number;
 }
 
-const ItemCount: FC<ItemCountProps> = ({ count }) => {
+const Summary: FC<SummaryProps> = ({ count }) => {
   return (
     <span>
       총 <strong>{count}</strong>건
@@ -12,4 +12,4 @@ const ItemCount: FC<ItemCountProps> = ({ count }) => {
   );
 };
 
-export default ItemCount;
+export default Summary;
