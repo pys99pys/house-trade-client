@@ -1,15 +1,15 @@
 import { FC } from "react";
 import { TradeItem } from "../models/tradeItemModels";
-import ItemsTable from "../components/ItemsTable";
+import TradeItems from "../components/TradeItems";
 import Summary from "../components/Summary";
 import useItemsFilter from "../hooks/useItemsFilter";
 
-interface ItemsTableContainerProps {
+interface TradeItemsContainerProps {
   isLoading: boolean;
   items: TradeItem[];
 }
 
-const ItemsTableContainer: FC<ItemsTableContainerProps> = ({
+const TradeItemsContainer: FC<TradeItemsContainerProps> = ({
   isLoading,
   items,
 }) => {
@@ -19,10 +19,10 @@ const ItemsTableContainer: FC<ItemsTableContainerProps> = ({
     <>
       <Summary count={items.length} />
       <div className="mt-2">
-        <ItemsTable isLoading={isLoading} items={items} />
+        <TradeItems isLoading={isLoading} items={items} />
       </div>
     </>
   );
 };
 
-export default ItemsTableContainer;
+export default TradeItemsContainer;

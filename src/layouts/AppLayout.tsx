@@ -3,13 +3,13 @@ import { FC } from "react";
 interface AppLayoutProps {
   searchForm: JSX.Element;
   favoriteFilterItems: JSX.Element;
-  itemsTable: JSX.Element;
+  tradeItems: JSX.Element;
 }
 
 const AppLayout: FC<AppLayoutProps> = ({
   searchForm,
   favoriteFilterItems,
-  itemsTable,
+  tradeItems,
 }) => {
   return (
     <>
@@ -20,7 +20,7 @@ const AppLayout: FC<AppLayoutProps> = ({
       <main className="m-auto pb-24" style={{ width: "1024px" }}>
         {searchForm}
         <div className="mt-3">{favoriteFilterItems}</div>
-        <div className="mt-6">{itemsTable}</div>
+        <div className="mt-6">{tradeItems}</div>
       </main>
     </>
   );
