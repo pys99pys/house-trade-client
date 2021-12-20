@@ -155,7 +155,7 @@ const TradeItems: FC<TradeItemsProps> = ({
                 })}
               >
                 <span className="inline-flex items-center">
-                  {amountFormat(item.amount)}
+                  <strong>{amountFormat(item.amount)}</strong>
                   <small className="ml-1 text-gray-500">
                     ({averageAmountFormat(item.amount / item.sizeFlat)})
                   </small>
