@@ -1,35 +1,81 @@
 import { FC } from "react";
+import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
-import { border } from "../styles/variables";
 import { TradeItem } from "../models/tradeItemModels";
+import { Sort, OnChangeSortHandler } from "../hooks/useItemsSort";
 import { amountFormat, averageAmountFormat } from "../utils/formatUtils";
+import { border } from "../styles/variables";
+import Icon from "../elements/Icon";
 
 interface TradeItemsProps {
   isLoading: boolean;
   items: TradeItem[];
+  sort: Sort;
+  onChangeSort: OnChangeSortHandler;
 }
 
-const tableHeaderLabels = [
-  "거래일",
-  "주소",
-  "아파트명",
-  "평수",
-  "층",
-  "연식",
-  "거래금액",
+const tableItems: { key: keyof TradeItem; label: String }[] = [
+  {
+    key: "date",
+    label: "거래일",
+  },
+  {
+    key: "address",
+    label: "주소",
+  },
+  {
+    key: "name",
+    label: "아파트명",
+  },
+  {
+    key: "sizeFlat",
+    label: "평수",
+  },
+  {
+    key: "floor",
+    label: "층",
+  },
+  {
+    key: "buildedYear",
+    label: "연식",
+  },
+  {
+    key: "amount",
+    label: "거래금액",
+  },
 ];
 
-const TradeItems: FC<TradeItemsProps> = ({ isLoading, items }) => {
+const TradeItems: FC<TradeItemsProps> = ({
+  isLoading,
+  items,
+  sort,
+  onChangeSort,
+}) => {
   return (
     <table className="w-full">
       <thead>
         <tr>
-          {tableHeaderLabels.map((label) => (
+          {tableItems.map((item) => (
             <th
-              key={label}
-              className={classNames(border, "bg-gray-100", "p-5")}
+              key={item.key}
+              className={classNames(
+                border,
+                "p-5 bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer"
+              )}
+              onClick={() => onChangeSort(item.key)}
             >
-              <span>{label}</span>
+              <div className="flex justify-center items-center">
+                <span>{item.label}</span>
+                {item.key === sort.column && (
+                  <span className="ml-2">
+                    <Icon
+                      icon={
+                        sort.direction === "asc" ? faChevronUp : faChevronDown
+                      }
+                    />
+                  </span>
+                )}
+              </div>
             </th>
           ))}
         </tr>
@@ -38,7 +84,7 @@ const TradeItems: FC<TradeItemsProps> = ({ isLoading, items }) => {
         {isLoading && (
           <tr>
             <td
-              colSpan={tableHeaderLabels.length}
+              colSpan={tableItems.length}
               className={classNames(border, "py-14 bg-gray-50 text-center")}
             >
               데이터를 불러오고 있습니다.
