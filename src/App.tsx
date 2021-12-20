@@ -1,4 +1,4 @@
-import ItemTableContainer from "./containers/ItemTableContainer";
+import ItemsTableContainer from "./containers/ItemsTableContainer";
 import AppLayout from "./layouts/AppLayout";
 import SearchForm from "./components/SearchForm";
 import FavoriteFilterItems from "./components/FavoriteFilterItems";
@@ -36,8 +36,8 @@ function App() {
           onRemove={onRemoveFavoriteFilter}
         />
       }
-      itemTable={
-        <ItemTableContainer isLoading={isLoading} items={tradeItems} />
+      itemsTable={
+        <ItemsTableContainer isLoading={isLoading} items={tradeItems} />
       }
     />
   );

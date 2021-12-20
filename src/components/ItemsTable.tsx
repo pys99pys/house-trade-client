@@ -4,7 +4,7 @@ import { border } from "../styles/variables";
 import { TradeItem } from "../models/tradeItemModels";
 import { amountFormat, averageAmountFormat } from "../utils/formatUtils";
 
-interface ItemTableProps {
+interface ItemsTableProps {
   isLoading: boolean;
   items: TradeItem[];
 }
@@ -19,7 +19,7 @@ const tableHeaderLabels = [
   "거래금액",
 ];
 
-const ItemTable: FC<ItemTableProps> = ({ isLoading, items }) => {
+const ItemsTable: FC<ItemsTableProps> = ({ isLoading, items }) => {
   return (
     <table className="w-full">
       <thead>
@@ -115,4 +115,4 @@ const ItemTable: FC<ItemTableProps> = ({ isLoading, items }) => {
   );
 };
 
-export default ItemTable;
+export default ItemsTable;
