@@ -1,19 +1,23 @@
 import { FC } from "react";
-import { FilterItem as FilterItemType } from "../models/filterModels";
-import FilterItem from "./FilterItem";
+import { FavoriteFilterItem as FavoriteFilterItemType } from "../models/filterModels";
+import FavoriteFilterItem from "./FavoriteFilterItem";
 
-interface FilterItemsProps {
-  items: FilterItemType[];
+interface FavoriteFilterItemsProps {
+  items: FavoriteFilterItemType[];
   onSelect: (stateCode: string) => void;
   onRemove: (stateCode: string) => void;
 }
 
-const FilterItems: FC<FilterItemsProps> = ({ items, onSelect, onRemove }) => {
+const FavoriteFilterItems: FC<FavoriteFilterItemsProps> = ({
+  items,
+  onSelect,
+  onRemove,
+}) => {
   return (
     <div className="flex">
       {items.map((item) => (
         <span key={item.stateCode} className="mr-1">
-          <FilterItem
+          <FavoriteFilterItem
             item={item}
             onClick={() => onSelect(item.stateCode)}
             onClickRemoveButton={() => onRemove(item.stateCode)}
@@ -24,4 +28,4 @@ const FilterItems: FC<FilterItemsProps> = ({ items, onSelect, onRemove }) => {
   );
 };
 
-export default FilterItems;
+export default FavoriteFilterItems;

@@ -1,14 +1,15 @@
 import { useCallback } from "react";
 import { SearchForm } from "../models/searchFormModels";
 import useData from "./useData";
-import useFilter from "./useFilter";
+import useFavoriteFilter from "./useFavoriteFilter";
 import useSearchForm from "./useSearchForm";
 import landCodes from "../jsons/landCodes.json";
 
 const useApp = () => {
   const { searchForm, onChangeSearchForm } = useSearchForm();
   const { isLoading, tradeItems, onFetch } = useData();
-  const { filters, onSaveFilter, onRemoveFilter } = useFilter();
+  const { filters, onSaveFavoriteFilter, onRemoveFavoriteFilter } =
+    useFavoriteFilter();
 
   const onFetchWithSearchForm = useCallback(
     (afterForm: SearchForm) => {
@@ -60,12 +61,12 @@ const useApp = () => {
       return;
     }
 
-    onSaveFilter({
+    onSaveFavoriteFilter({
       stateCode: searchForm.stateCode,
       cityName: searchForm.cityName,
       stateName,
     });
-  }, [searchForm, onSaveFilter]);
+  }, [searchForm, onSaveFavoriteFilter]);
 
   return {
     isLoading,
@@ -76,7 +77,7 @@ const useApp = () => {
     onChangeCityName,
     onChangeStateCode,
     onCreateFilter,
-    onRemoveFilter,
+    onRemoveFavoriteFilter,
     onFetchWithStateCode,
   };
 };

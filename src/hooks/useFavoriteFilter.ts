@@ -1,16 +1,16 @@
 import { useCallback, useState } from "react";
-import { FilterItem } from "../models/filterModels";
+import { FavoriteFilterItem } from "../models/filterModels";
 
-type OnSaveFilterHandler = (item: FilterItem) => void;
-type OnRemoveFilterHandler = (stateCode: string) => void;
+type OnSaveFavoriteFilterHandler = (item: FavoriteFilterItem) => void;
+type OnRemoveFavoriteFilterHandler = (stateCode: string) => void;
 
 interface ReturnType {
-  filters: FilterItem[];
-  onSaveFilter: OnSaveFilterHandler;
-  onRemoveFilter: OnRemoveFilterHandler;
+  filters: FavoriteFilterItem[];
+  onSaveFavoriteFilter: OnSaveFavoriteFilterHandler;
+  onRemoveFavoriteFilter: OnRemoveFavoriteFilterHandler;
 }
 
-const getFilters = (): FilterItem[] => {
+const getFilters = (): FavoriteFilterItem[] => {
   try {
     const savedFilters = window.localStorage.getItem("filters");
     return savedFilters ? JSON.parse(savedFilters) : [];
@@ -19,7 +19,7 @@ const getFilters = (): FilterItem[] => {
   }
 };
 
-const setFilter = (item: FilterItem): FilterItem[] => {
+const setFilter = (item: FavoriteFilterItem): FavoriteFilterItem[] => {
   const filters = getFilters();
   const alreadyAdded = !!filters.find(
     (filter) => filter.stateCode === item.stateCode
@@ -43,7 +43,7 @@ const setFilter = (item: FilterItem): FilterItem[] => {
   return getFilters();
 };
 
-const removeFilter = (stateCode: string): FilterItem[] => {
+const removeFilter = (stateCode: string): FavoriteFilterItem[] => {
   const filters = getFilters();
   const afterFilters = filters.filter((item) => item.stateCode !== stateCode);
 
@@ -52,14 +52,17 @@ const removeFilter = (stateCode: string): FilterItem[] => {
 };
 
 const useFilter = (): ReturnType => {
-  const [filters, setFilters] = useState<FilterItem[]>(getFilters());
+  const [filters, setFilters] = useState<FavoriteFilterItem[]>(getFilters());
 
-  const onSaveFilter: OnSaveFilterHandler = useCallback((item) => {
-    const afterFilters = setFilter(item);
-    setFilters(afterFilters);
-  }, []);
+  const onSaveFavoriteFilter: OnSaveFavoriteFilterHandler = useCallback(
+    (item) => {
+      const afterFilters = setFilter(item);
+      setFilters(afterFilters);
+    },
+    []
+  );
 
-  const onRemoveFilter: OnRemoveFilterHandler = useCallback(
+  const onRemoveFavoriteFilter: OnRemoveFavoriteFilterHandler = useCallback(
     (stateCode: string) => {
       const afterFilters = removeFilter(stateCode);
       setFilters(afterFilters);
@@ -69,8 +72,8 @@ const useFilter = (): ReturnType => {
 
   return {
     filters,
-    onSaveFilter,
-    onRemoveFilter,
+    onSaveFavoriteFilter,
+    onRemoveFavoriteFilter,
   };
 };
 

@@ -1,8 +1,7 @@
 import ItemTableContainer from "./containers/ItemTableContainer";
 import AppLayout from "./layouts/AppLayout";
 import SearchForm from "./components/SearchForm";
-import FilterItems from "./components/FilterItems";
-import Summary from "./components/Summary";
+import FavoriteFilterItems from "./components/FavoriteFilterItems";
 import useApp from "./hooks/useApp";
 
 function App() {
@@ -15,7 +14,7 @@ function App() {
     onChangeCityName,
     onChangeStateCode,
     onCreateFilter,
-    onRemoveFilter,
+    onRemoveFavoriteFilter,
     onFetchWithStateCode,
   } = useApp();
 
@@ -30,14 +29,13 @@ function App() {
           onChangeStateCode={onChangeStateCode}
         />
       }
-      filterItems={
-        <FilterItems
+      favoriteFilterItems={
+        <FavoriteFilterItems
           items={filters}
           onSelect={onFetchWithStateCode}
-          onRemove={onRemoveFilter}
+          onRemove={onRemoveFavoriteFilter}
         />
       }
-      summary={<Summary count={tradeItems.length} />}
       itemTable={
         <ItemTableContainer isLoading={isLoading} items={tradeItems} />
       }

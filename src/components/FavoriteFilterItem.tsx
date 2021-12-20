@@ -1,17 +1,17 @@
 import { FC } from "react";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FilterItem as FilterItemType } from "../models/filterModels";
+import { FavoriteFilterItem as FavoriteFilterItemType } from "../models/filterModels";
 import Button from "../elements/Button";
 import classNames from "classnames";
 import Icon from "../elements/Icon";
 
-interface FilterItemProps {
-  item: FilterItemType;
+interface FavoriteFilterItemProps {
+  item: FavoriteFilterItemType;
   onClick: () => void;
   onClickRemoveButton: () => void;
 }
 
-const FilterItem: FC<FilterItemProps> = ({
+const FavoriteFilterItem: FC<FavoriteFilterItemProps> = ({
   item,
   onClick,
   onClickRemoveButton,
@@ -36,4 +36,4 @@ const FilterItem: FC<FilterItemProps> = ({
   );
 };
 
-export default FilterItem;
+export default FavoriteFilterItem;
