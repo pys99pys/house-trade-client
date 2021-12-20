@@ -1,5 +1,9 @@
 import { FC } from "react";
-import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSpinner,
+  faChevronUp,
+  faChevronDown,
+} from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 import { TradeItem } from "../models/tradeItemModels";
 import { Sort, OnChangeSortHandler } from "../hooks/useItemsSort";
@@ -87,7 +91,10 @@ const TradeItems: FC<TradeItemsProps> = ({
               colSpan={tableItems.length}
               className={classNames(border, "py-14 bg-gray-50 text-center")}
             >
-              데이터를 불러오고 있습니다.
+              <span className="inline-block text-3xl text-gray-400 animate-spin">
+                <Icon icon={faSpinner} />
+              </span>
+              <p className="mt-5">데이터를 불러오고 있습니다.</p>
             </td>
           </tr>
         )}
