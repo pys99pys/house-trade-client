@@ -5,17 +5,16 @@ import {
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
-import { TradeItem } from "../models/tradeItemModels";
+import { TradeItem as TradeItemType } from "../models/tradeItemModels";
 import { FavoriteItem } from "../models/favoriteItemsModel";
 import { Sort, OnChangeSortHandler } from "../hooks/useItemsSort";
-import { amountFormat, averageAmountFormat } from "../utils/formatUtils";
 import { border } from "../styles/variables";
 import Icon from "../elements/Icon";
-import Button from "../elements/Button";
+import TradeItem from "./TradeItem";
 
 interface TradeItemsProps {
   isLoading: boolean;
-  tradeItems: TradeItem[];
+  tradeItems: TradeItemType[];
   favoriteItems: FavoriteItem[];
   sort: Sort;
   stateCode: string;
@@ -24,7 +23,7 @@ interface TradeItemsProps {
   onChangeSort: OnChangeSortHandler;
 }
 
-const tableItems: { key: keyof TradeItem | null; label: String }[] = [
+const tableItems: { key: keyof TradeItemType | null; label: String }[] = [
   {
     key: "date",
     label: "거래일",
@@ -122,71 +121,14 @@ const TradeItems: FC<TradeItemsProps> = ({
             );
 
             return (
-              <tr
-                key={index}
-                className={classNames({
-                  "bg-gray-50": index % 2 === 0,
-                })}
-              >
-                <td className={classNames(border, "p-4 text-center")}>
-                  {item.date}
-                </td>
-                <td className={classNames(border, "p-4 text-center")}>
-                  {item.address}
-                </td>
-                <td className={classNames(border, "p-4 text-center")}>
-                  {item.name}
-                </td>
-                <td className={classNames(border, "p-4 text-center")}>
-                  <span className="inline-flex items-center">
-                    {item.sizeFlat}평{" "}
-                    <small className="ml-1 text-gray-500">
-                      ({item.sizeArea}㎡)
-                    </small>
-                  </span>
-                </td>
-                <td className={classNames(border, "p-4 text-center")}>
-                  {item.floor}
-                </td>
-                <td className={classNames(border, "p-4 text-center")}>
-                  {item.buildedYear}
-                </td>
-                <td className={classNames(border, "p-4 text-center")}>
-                  <span className="inline-flex items-center">
-                    <strong>{amountFormat(item.amount)}</strong>
-                    <small className="ml-1 text-gray-500">
-                      ({averageAmountFormat(item.amount / item.sizeFlat)})
-                    </small>
-                  </span>
-                </td>
-                <td className={classNames(border, "p-4 text-center")}>
-                  {favoriteItem && (
-                    <Button
-                      size="small"
-                      color="red"
-                      onClick={() => onRemoveFavoriteItem(favoriteItem.id)}
-                    >
-                      삭제
-                    </Button>
-                  )}
-
-                  {!favoriteItem && (
-                    <Button
-                      size="small"
-                      color="yellow"
-                      onClick={() =>
-                        onSaveFavoriteItem({
-                          stateCode,
-                          apartName: item.name,
-                          address: item.address,
-                        })
-                      }
-                    >
-                      추가
-                    </Button>
-                  )}
-                </td>
-              </tr>
+              <TradeItem
+                index={index}
+                item={item}
+                favoriteItem={favoriteItem}
+                stateCode={stateCode}
+                onSaveFavoriteItem={onSaveFavoriteItem}
+                onRemoveFavoriteItem={onRemoveFavoriteItem}
+              />
             );
           })}
       </tbody>

@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import classnames from "classnames";
 import { Color } from "../models/buttonModels";
 import {
@@ -7,14 +8,17 @@ import {
   inputAndButtonHeightSmall,
 } from "../styles/variables";
 import { getBackgroundColor } from "../utils/tailwindUtils";
+import Icon from "./Icon";
 
 interface ButtonProps {
+  icon?: IconDefinition;
   size?: "default" | "small";
   color?: Color;
   onClick?: () => void;
 }
 
 const Button: FC<ButtonProps> = ({
+  icon,
   size = "default",
   color = "button",
   onClick,
@@ -36,6 +40,11 @@ const Button: FC<ButtonProps> = ({
       )}
       onClick={onClick}
     >
+      {icon && (
+        <span className="mr-1">
+          <Icon icon={icon} />
+        </span>
+      )}
       {children}
     </button>
   );

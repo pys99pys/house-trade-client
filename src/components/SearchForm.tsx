@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { SearchForm as SearchFormType } from "../models/searchFormModels";
 import Button from "../elements/Button";
 import Input from "../elements/Input";
@@ -38,7 +39,7 @@ const SearchForm: FC<SearchFormProps> = ({
         </li>
         {form.stateCode && (
           <li>
-            <Button color="yellow" onClick={onSaveFilter}>
+            <Button icon={faCheck} color="yellow" onClick={onSaveFilter}>
               필터 저장
             </Button>
           </li>
