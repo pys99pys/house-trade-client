@@ -7,13 +7,22 @@ import useTradeItems from "../hooks/useTradeItems";
 interface TradeItemsContainerProps {
   isLoading: boolean;
   items: TradeItem[];
+  stateCode: string;
 }
 
 const TradeItemsContainer: FC<TradeItemsContainerProps> = ({
   isLoading,
   items,
+  stateCode,
 }) => {
-  const { sortedItems, sort, onChangeSort } = useTradeItems(items);
+  const {
+    sortedItems,
+    filteredFavoriteItems,
+    sort,
+    onSaveFavoriteItem,
+    onRemoveFavoriteItem,
+    onChangeSort,
+  } = useTradeItems(items, stateCode);
 
   return (
     <>
@@ -21,8 +30,12 @@ const TradeItemsContainer: FC<TradeItemsContainerProps> = ({
       <div className="mt-2">
         <TradeItems
           isLoading={isLoading}
-          items={sortedItems}
+          tradeItems={sortedItems}
+          favoriteItems={filteredFavoriteItems}
           sort={sort}
+          stateCode={stateCode}
+          onSaveFavoriteItem={onSaveFavoriteItem}
+          onRemoveFavoriteItem={onRemoveFavoriteItem}
           onChangeSort={onChangeSort}
         />
       </div>

@@ -51,7 +51,7 @@ const removeFilter = (stateCode: string): FavoriteFilterItem[] => {
   return getFilters();
 };
 
-const useFilter = (): ReturnType => {
+const useFavoriteFilters = (): ReturnType => {
   const [filters, setFilters] = useState<FavoriteFilterItem[]>(getFilters());
 
   const onSaveFavoriteFilter: OnSaveFavoriteFilterHandler = useCallback(
@@ -77,4 +77,4 @@ const useFilter = (): ReturnType => {
   };
 };
 
-export default useFilter;
+export default useFavoriteFilters;

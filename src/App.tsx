@@ -37,7 +37,11 @@ function App() {
         />
       }
       tradeItems={
-        <TradeItemsContainer isLoading={isLoading} items={tradeItems} />
+        <TradeItemsContainer
+          isLoading={isLoading}
+          items={tradeItems}
+          stateCode={searchForm.stateCode}
+        />
       }
     />
   );

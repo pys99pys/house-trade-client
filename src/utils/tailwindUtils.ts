@@ -5,6 +5,8 @@ import {
   backgroundButtonHover,
   backgroundPrimary,
   backgroundPrimaryHover,
+  backgroundRed,
+  backgroundRedHover,
   backgroundYellow,
   backgroundYellowHover,
 } from "../styles/variables";
@@ -22,6 +24,9 @@ export const getBackgroundColor = (color: Color): string => {
       break;
     case "yellow":
       className = classnames(backgroundYellow, backgroundYellowHover);
+      break;
+    case "red":
+      className = classnames(backgroundRed, backgroundRedHover, "text-white");
       break;
     default:
       className = classnames(backgroundButton, backgroundButtonHover);

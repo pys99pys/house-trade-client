@@ -14,3 +14,7 @@ export const backgroundButtonHover = "hover:bg-gray-300";
 export const colorYellow = "yellow-400";
 export const backgroundYellow = "bg-yellow-400";
 export const backgroundYellowHover = "hover:bg-yellow-500";
+
+export const colorRed = "red-500";
+export const backgroundRed = "bg-red-500";
+export const backgroundRedHover = "hover:bg-red-600";

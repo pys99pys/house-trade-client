@@ -1,9 +1,17 @@
 import { useMemo } from "react";
 import { TradeItem } from "../models/tradeItemModels";
+import useFavoriteItems from "./useFavoriteItems";
 import useItemsSort from "./useItemsSort";
 
-const useTradeItems = (items: TradeItem[]) => {
+const useTradeItems = (items: TradeItem[], stateCode: string) => {
   const { sort, onChangeSort } = useItemsSort();
+  const { favoriteItems, onSaveFavoriteItem, onRemoveFavoriteItem } =
+    useFavoriteItems();
+
+  const filteredFavoriteItems = useMemo(
+    () => favoriteItems.filter((item) => item.stateCode === stateCode),
+    [favoriteItems, stateCode]
+  );
 
   const sortedItems = useMemo(() => {
     return items.sort((a, b) => {
@@ -24,7 +32,10 @@ const useTradeItems = (items: TradeItem[]) => {
 
   return {
     sortedItems,
+    filteredFavoriteItems,
     sort,
+    onSaveFavoriteItem,
+    onRemoveFavoriteItem,
     onChangeSort,
   };
 };

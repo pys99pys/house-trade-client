@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { SearchForm } from "../models/searchFormModels";
 import useData from "./useData";
-import useFavoriteFilter from "./useFavoriteFilter";
+import useFavoriteFilters from "./useFavoriteFilters";
 import useSearchForm from "./useSearchForm";
 import landCodes from "../jsons/landCodes.json";
 
@@ -9,7 +9,7 @@ const useApp = () => {
   const { searchForm, onChangeSearchForm } = useSearchForm();
   const { isLoading, tradeItems, onFetch } = useData();
   const { filters, onSaveFavoriteFilter, onRemoveFavoriteFilter } =
-    useFavoriteFilter();
+    useFavoriteFilters();
 
   const onFetchWithSearchForm = useCallback(
     (afterForm: SearchForm) => {
