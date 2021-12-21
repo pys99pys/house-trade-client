@@ -3,9 +3,9 @@ import { calendarFormat, sizeFormat } from "./formatUtils";
 
 export const parseToTradeItem = (row: any): TradeItem => {
   return {
-    name: row["아파트"].trim(),
-    amount: Number(row["거래금액"].replace(/[^0-9]/gi, "")) * 10000,
-    date: `${row["년"]}-${calendarFormat(row["월"])}-${calendarFormat(
+    apartName: row["아파트"].trim(),
+    tradeAmount: Number(row["거래금액"].replace(/[^0-9]/gi, "")) * 10000,
+    tradeDate: `${row["년"]}-${calendarFormat(row["월"])}-${calendarFormat(
       row["일"]
     )}`,
     sizeArea: row["전용면적"],

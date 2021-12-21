@@ -15,7 +15,7 @@ interface ReturnType {
 
 const useItemsFilter = (): ReturnType => {
   const [sort, setSort] = useState<Sort>({
-    column: "date",
+    column: "tradeDate",
     direction: "desc",
   });
 

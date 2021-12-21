@@ -25,7 +25,7 @@ interface TradeItemsProps {
 
 const tableItems: { key: keyof TradeItemType | null; label: String }[] = [
   {
-    key: "date",
+    key: "tradeDate",
     label: "거래일",
   },
   {
@@ -33,7 +33,7 @@ const tableItems: { key: keyof TradeItemType | null; label: String }[] = [
     label: "주소",
   },
   {
-    key: "name",
+    key: "apartName",
     label: "아파트명",
   },
   {
@@ -49,7 +49,7 @@ const tableItems: { key: keyof TradeItemType | null; label: String }[] = [
     label: "연식",
   },
   {
-    key: "amount",
+    key: "tradeAmount",
     label: "거래금액",
   },
   {
@@ -117,7 +117,7 @@ const TradeItems: FC<TradeItemsProps> = ({
             const favoriteItem = favoriteItems.find(
               (favoriteItem) =>
                 favoriteItem.address === item.address &&
-                favoriteItem.apartName === item.name
+                favoriteItem.apartName === item.apartName
             );
 
             return (

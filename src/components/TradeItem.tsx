@@ -29,9 +29,13 @@ const TradeItem: FC<TradeItemProps> = ({
         "bg-gray-50": index % 2 === 0,
       })}
     >
-      <td className={classNames(border, "p-4 text-center")}>{item.date}</td>
+      <td className={classNames(border, "p-4 text-center")}>
+        {item.tradeDate}
+      </td>
       <td className={classNames(border, "p-4 text-center")}>{item.address}</td>
-      <td className={classNames(border, "p-4 text-center")}>{item.name}</td>
+      <td className={classNames(border, "p-4 text-center")}>
+        {item.apartName}
+      </td>
       <td className={classNames(border, "p-4 text-center")}>
         <span className="inline-flex items-center">
           {item.sizeFlat}평{" "}
@@ -44,9 +48,9 @@ const TradeItem: FC<TradeItemProps> = ({
       </td>
       <td className={classNames(border, "p-4 text-center")}>
         <span className="inline-flex items-center">
-          <strong>{amountFormat(item.amount)}</strong>
+          <strong>{amountFormat(item.tradeAmount)}</strong>
           <small className="ml-1 text-gray-500">
-            ({averageAmountFormat(item.amount / item.sizeFlat)})
+            ({averageAmountFormat(item.tradeAmount / item.sizeFlat)})
           </small>
         </span>
       </td>
@@ -68,7 +72,7 @@ const TradeItem: FC<TradeItemProps> = ({
             onClick={() =>
               onSaveFavoriteItem({
                 stateCode,
-                apartName: item.name,
+                apartName: item.apartName,
                 address: item.address,
               })
             }

@@ -1,7 +1,7 @@
 export interface TradeItem {
-  name: string;
-  amount: number;
-  date: string;
+  apartName: string;
+  tradeAmount: number;
+  tradeDate: string;
   sizeArea: number;
   sizeFlat: number;
   buildedYear: number;
