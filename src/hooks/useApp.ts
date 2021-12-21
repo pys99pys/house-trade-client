@@ -22,11 +22,16 @@ const useApp = () => {
 
   const onFetchWithStateCode = useCallback(
     (stateCode: string) => {
-      if (searchForm.date) {
+      const cityName = landCodes.find((item) =>
+        item.children.find((child) => child.code === stateCode)
+      )?.name;
+
+      if (searchForm.date && cityName) {
         onFetch(searchForm.date, stateCode);
+        onChangeSearchForm({ cityName, stateCode });
       }
     },
-    [searchForm, onFetch]
+    [searchForm, onFetch, onChangeSearchForm]
   );
 
   const onChangeDate = useCallback(
