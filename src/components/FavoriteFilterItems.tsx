@@ -14,9 +14,9 @@ const FavoriteFilterItems: FC<FavoriteFilterItemsProps> = ({
   onRemove,
 }) => {
   return (
-    <div className="flex">
+    <div className="flex flex-wrap">
       {items.map((item) => (
-        <span key={item.stateCode} className="mr-1">
+        <span key={item.stateCode} className="mr-1 mb-1">
           <FavoriteFilterItem
             item={item}
             onClick={() => onSelect(item.stateCode)}
