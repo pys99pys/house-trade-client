@@ -1,11 +1,15 @@
-import { FavoriteItem } from "../models/favoriteItemsModel";
 import { ItemsSort } from "../models/filterModels";
 import { TradeItem } from "../models/tradeItemModels";
 import { calendarFormat, sizeFormat } from "./formatUtils";
 
-export const parseToTradeItem = (row: any): TradeItem => {
+export const parseToTradeItem = (row: any, stateCode: string): TradeItem => {
+  const apartName = row["아파트"].trim();
+  const address = row["법정동"].trim();
+
   return {
-    apartName: row["아파트"].trim(),
+    favoriteKey: `${stateCode}|${address}${apartName}`,
+    address,
+    apartName,
     tradeAmount: Number(row["거래금액"].replace(/[^0-9]/gi, "")) * 10000,
     tradeDate: `${row["년"]}-${calendarFormat(row["월"])}-${calendarFormat(
       row["일"]
@@ -13,28 +17,20 @@ export const parseToTradeItem = (row: any): TradeItem => {
     sizeArea: row["전용면적"],
     sizeFlat: sizeFormat(row["전용면적"]),
     buildedYear: row["건축년도"],
-    address: row["법정동"].trim(),
     floor: row["층"],
   };
 };
 
 export const getFavoriteFilteredItems = (
   items: TradeItem[],
-  favoriteItems: FavoriteItem[],
+  favoriteItemKeys: string[],
   isShowFavoriteItems: boolean
 ): TradeItem[] => {
   if (!isShowFavoriteItems) {
     return items;
   }
 
-  return items.filter(
-    (item) =>
-      !!favoriteItems.find(
-        (favoriteItem) =>
-          favoriteItem.address === item.address &&
-          favoriteItem.apartName === item.apartName
-      )
-  );
+  return items.filter((item) => !!favoriteItemKeys.includes(item.favoriteKey));
 };
 
 export const getSortedItems = (

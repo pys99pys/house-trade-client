@@ -1,7 +1,6 @@
 import { FC } from "react";
 import classNames from "classnames";
 import { TradeItem as TradeItemType } from "../models/tradeItemModels";
-import { FavoriteItem } from "../models/favoriteItemsModel";
 import { amountFormat, averageAmountFormat } from "../utils/formatUtils";
 import { border } from "../styles/variables";
 import Button from "../elements/Button";
@@ -9,17 +8,15 @@ import Button from "../elements/Button";
 interface TradeItemProps {
   index: number;
   item: TradeItemType;
-  favoriteItem: FavoriteItem | undefined;
-  stateCode: string;
-  onSaveFavoriteItem: (favoriteItem: Omit<FavoriteItem, "id">) => void;
-  onRemoveFavoriteItem: (id: number) => void;
+  isFavorite: boolean;
+  onSaveFavoriteItem: () => void;
+  onRemoveFavoriteItem: () => void;
 }
 
 const TradeItem: FC<TradeItemProps> = ({
   index,
   item,
-  favoriteItem,
-  stateCode,
+  isFavorite,
   onSaveFavoriteItem,
   onRemoveFavoriteItem,
 }) => {
@@ -55,28 +52,13 @@ const TradeItem: FC<TradeItemProps> = ({
         </span>
       </td>
       <td className={classNames(border, "p-4 text-center")}>
-        {favoriteItem && (
-          <Button
-            size="small"
-            color="red"
-            onClick={() => onRemoveFavoriteItem(favoriteItem.id)}
-          >
+        {isFavorite && (
+          <Button size="small" color="red" onClick={onRemoveFavoriteItem}>
             삭제
           </Button>
         )}
-
-        {!favoriteItem && (
-          <Button
-            size="small"
-            color="yellow"
-            onClick={() =>
-              onSaveFavoriteItem({
-                stateCode,
-                apartName: item.apartName,
-                address: item.address,
-              })
-            }
-          >
+        {!isFavorite && (
+          <Button size="small" color="yellow" onClick={onSaveFavoriteItem}>
             추가
           </Button>
         )}

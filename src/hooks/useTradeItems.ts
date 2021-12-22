@@ -5,32 +5,27 @@ import useItemsSort from "./useItemsSort";
 import useItemsFIlter from "./useItemsFIlter";
 import { getFavoriteFilteredItems, getSortedItems } from "../utils/parserUtils";
 
-const useTradeItems = (items: TradeItem[], stateCode: string) => {
+const useTradeItems = (items: TradeItem[]) => {
   const { sort, onChangeSort } = useItemsSort();
   const { favoriteItems, onSaveFavoriteItem, onRemoveFavoriteItem } =
     useFavoriteItems();
   const { itemsFilter, onChangeItemsFilter } = useItemsFIlter();
 
-  const filteredFavoriteItems = useMemo(
-    () => favoriteItems.filter((item) => item.stateCode === stateCode),
-    [favoriteItems, stateCode]
-  );
-
   const filteredTradeItems = useMemo(() => {
     const favoriteFilteredItems = getFavoriteFilteredItems(
       items,
-      filteredFavoriteItems,
+      favoriteItems,
       itemsFilter.isShowFavoriteItems
     );
 
     const sortedItems = getSortedItems(favoriteFilteredItems, sort);
 
     return sortedItems;
-  }, [items, filteredFavoriteItems, itemsFilter, sort]);
+  }, [items, favoriteItems, itemsFilter, sort]);
 
   return {
     filteredTradeItems,
-    filteredFavoriteItems,
+    favoriteItems,
     sort,
     itemsFilter,
     onSaveFavoriteItem,

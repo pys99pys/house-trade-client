@@ -1,4 +1,5 @@
 export interface TradeItem {
+  favoriteKey: string;
   apartName: string;
   tradeAmount: number;
   tradeDate: string;

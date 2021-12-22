@@ -6,7 +6,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 import { TradeItem as TradeItemType } from "../models/tradeItemModels";
-import { FavoriteItem } from "../models/favoriteItemsModel";
 import { ItemsSort } from "../models/filterModels";
 import { border } from "../styles/variables";
 import Icon from "../elements/Icon";
@@ -15,11 +14,10 @@ import TradeItem from "./TradeItem";
 interface TradeItemsProps {
   isLoading: boolean;
   tradeItems: TradeItemType[];
-  favoriteItems: FavoriteItem[];
+  favoriteItems: string[];
   sort: ItemsSort;
-  stateCode: string;
-  onSaveFavoriteItem: (favoriteItem: Omit<FavoriteItem, "id">) => void;
-  onRemoveFavoriteItem: (id: number) => void;
+  onSaveFavoriteItem: (favoriteItemKey: string) => void;
+  onRemoveFavoriteItem: (favoriteItemKey: string) => void;
   onChangeSort: (targetColumn: keyof TradeItemType) => void;
 }
 
@@ -63,7 +61,6 @@ const TradeItems: FC<TradeItemsProps> = ({
   tradeItems,
   favoriteItems,
   sort,
-  stateCode,
   onSaveFavoriteItem,
   onRemoveFavoriteItem,
   onChangeSort,
@@ -113,25 +110,18 @@ const TradeItems: FC<TradeItemsProps> = ({
         )}
 
         {!isLoading &&
-          tradeItems.map((item, index) => {
-            const favoriteItem = favoriteItems.find(
-              (favoriteItem) =>
-                favoriteItem.address === item.address &&
-                favoriteItem.apartName === item.apartName
-            );
-
-            return (
-              <TradeItem
-                key={index}
-                index={index}
-                item={item}
-                favoriteItem={favoriteItem}
-                stateCode={stateCode}
-                onSaveFavoriteItem={onSaveFavoriteItem}
-                onRemoveFavoriteItem={onRemoveFavoriteItem}
-              />
-            );
-          })}
+          tradeItems.map((item, index) => (
+            <TradeItem
+              key={index}
+              index={index}
+              item={item}
+              isFavorite={favoriteItems.includes(item.favoriteKey)}
+              onSaveFavoriteItem={() => onSaveFavoriteItem(item.favoriteKey)}
+              onRemoveFavoriteItem={() =>
+                onRemoveFavoriteItem(item.favoriteKey)
+              }
+            />
+          ))}
       </tbody>
     </table>
   );

@@ -11,5 +11,5 @@ export const getTradeItems = async (
 
   const items = await response.json();
 
-  return items.map((item: any) => parseToTradeItem(item));
+  return items.map((item: any) => parseToTradeItem(item, stateCode));
 };

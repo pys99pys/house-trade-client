@@ -1,70 +1,72 @@
 import { useCallback, useState } from "react";
-import { FavoriteItem } from "../models/favoriteItemsModel";
 
-type OnSaveFavoriteItem = (item: Omit<FavoriteItem, "id">) => void;
-type OnRemoveFavoriteItem = (id: number) => void;
+type OnSaveFavoriteItem = (favoriteItemKey: string) => void;
+type OnRemoveFavoriteItem = (favoriteItemKey: string) => void;
 
 interface ReturnType {
-  favoriteItems: FavoriteItem[];
+  favoriteItems: string[];
   onSaveFavoriteItem: OnSaveFavoriteItem;
   onRemoveFavoriteItem: OnRemoveFavoriteItem;
 }
 
-const getFavoriteItemInStorage = (): FavoriteItem[] => {
+const getFavoriteItemKeysInStorage = (): string[] => {
   try {
-    const favorites = window.localStorage.getItem("favoriteItems");
-    return favorites ? JSON.parse(favorites) : [];
+    const favoriteItemKeys = window.localStorage.getItem("favoriteItemKeys");
+    return favoriteItemKeys ? JSON.parse(favoriteItemKeys) : [];
   } catch {
     return [];
   }
 };
 
-const setFavoriteItemToStorage = (item: FavoriteItem): FavoriteItem[] => {
-  const favorites = getFavoriteItemInStorage();
-  const alreadyAdded = !!favorites.find(
-    (favoriteItem) =>
-      favoriteItem.stateCode === item.stateCode &&
-      favoriteItem.apartName === item.apartName &&
-      favoriteItem.address === item.address
-  );
+const setFavoriteItemToStorage = (favoriteItemKey: string): string[] => {
+  const favoriteItemKeys = getFavoriteItemKeysInStorage();
+  const alreadyAdded = !!favoriteItemKeys.includes(favoriteItemKey);
 
   if (alreadyAdded) {
-    return getFavoriteItemInStorage();
+    return getFavoriteItemKeysInStorage();
   }
 
-  favorites.push(item);
-  window.localStorage.setItem("favoriteItems", JSON.stringify(favorites));
-
-  return getFavoriteItemInStorage();
-};
-
-const removeFavoriteItemToStorage = (id: number): FavoriteItem[] => {
-  const favorites = getFavoriteItemInStorage();
-  const afterFavorites = favorites.filter(
-    (favoriteItem) => favoriteItem.id !== id
+  window.localStorage.setItem(
+    "favoriteItemKeys",
+    JSON.stringify(favoriteItemKeys.concat(favoriteItemKey))
   );
 
-  window.localStorage.setItem("favoriteItems", JSON.stringify(afterFavorites));
-  return getFavoriteItemInStorage();
+  return getFavoriteItemKeysInStorage();
+};
+
+const removeFavoriteItemToStorage = (favoriteItemKey: string): string[] => {
+  const favoriteItemKeys = getFavoriteItemKeysInStorage();
+  const afterFavorites = favoriteItemKeys.filter(
+    (key) => key !== favoriteItemKey
+  );
+
+  window.localStorage.setItem(
+    "favoriteItemKeys",
+    JSON.stringify(afterFavorites)
+  );
+  return getFavoriteItemKeysInStorage();
 };
 
 export const useFavoriteItems = (): ReturnType => {
-  const [favoriteItems, setFavoriteItems] = useState<FavoriteItem[]>(
-    getFavoriteItemInStorage()
+  const [favoriteItems, setFavoriteItems] = useState<string[]>(
+    getFavoriteItemKeysInStorage()
   );
 
-  const onSaveFavoriteItem: OnSaveFavoriteItem = useCallback((item) => {
-    const afterFavoriteItems = setFavoriteItemToStorage({
-      id: +new Date(),
-      ...item,
-    });
-    setFavoriteItems(afterFavoriteItems);
-  }, []);
+  const onSaveFavoriteItem: OnSaveFavoriteItem = useCallback(
+    (favoriteItemKey) => {
+      const afterFavoriteItems = setFavoriteItemToStorage(favoriteItemKey);
+      setFavoriteItems(afterFavoriteItems);
+    },
+    []
+  );
 
-  const onRemoveFavoriteItem: OnRemoveFavoriteItem = useCallback((id) => {
-    const afterFavoriteItem = removeFavoriteItemToStorage(id);
-    setFavoriteItems(afterFavoriteItem);
-  }, []);
+  const onRemoveFavoriteItem: OnRemoveFavoriteItem = useCallback(
+    (favoriteItemKey) => {
+      const afterFavoriteItem = removeFavoriteItemToStorage(favoriteItemKey);
+      setFavoriteItems(afterFavoriteItem);
+    },
+    []
+  );
 
   return {
     favoriteItems,

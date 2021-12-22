@@ -19,14 +19,14 @@ const TradeItemsContainer: FC<TradeItemsContainerProps> = ({
 }) => {
   const {
     filteredTradeItems,
-    filteredFavoriteItems,
+    favoriteItems,
     sort,
     itemsFilter,
     onSaveFavoriteItem,
     onRemoveFavoriteItem,
     onChangeSort,
     onChangeItemsFilter,
-  } = useTradeItems(items, stateCode);
+  } = useTradeItems(items);
 
   return (
     <TradeItemsLayout
@@ -41,9 +41,8 @@ const TradeItemsContainer: FC<TradeItemsContainerProps> = ({
         <TradeItems
           isLoading={isLoading}
           tradeItems={filteredTradeItems}
-          favoriteItems={filteredFavoriteItems}
+          favoriteItems={favoriteItems}
           sort={sort}
-          stateCode={stateCode}
           onSaveFavoriteItem={onSaveFavoriteItem}
           onRemoveFavoriteItem={onRemoveFavoriteItem}
           onChangeSort={onChangeSort}
