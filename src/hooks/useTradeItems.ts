@@ -23,11 +23,24 @@ const useTradeItems = (items: TradeItem[]) => {
     return sortedItems;
   }, [items, favoriteItems, itemsFilter, sort]);
 
+  const amountAverage = useMemo(() => {
+    if (!items.length) return undefined;
+
+    const averageItems = items.map((item) => item.tradeAmount / item.sizeFlat);
+    const averageItemsSummary = averageItems.reduce(
+      (averageAmount, item) => averageAmount + item,
+      0
+    );
+
+    return averageItemsSummary / items.length || undefined;
+  }, [items]);
+
   return {
     filteredTradeItems,
     favoriteItems,
     sort,
     itemsFilter,
+    amountAverage,
     onSaveFavoriteItem,
     onRemoveFavoriteItem,
     onChangeSort,

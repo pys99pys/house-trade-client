@@ -9,19 +9,18 @@ import TradeItems from "../components/TradeItems";
 interface TradeItemsContainerProps {
   isLoading: boolean;
   items: TradeItem[];
-  stateCode: string;
 }
 
 const TradeItemsContainer: FC<TradeItemsContainerProps> = ({
   isLoading,
   items,
-  stateCode,
 }) => {
   const {
     filteredTradeItems,
     favoriteItems,
     sort,
     itemsFilter,
+    amountAverage,
     onSaveFavoriteItem,
     onRemoveFavoriteItem,
     onChangeSort,
@@ -30,7 +29,7 @@ const TradeItemsContainer: FC<TradeItemsContainerProps> = ({
 
   return (
     <TradeItemsLayout
-      summary={<Summary count={items.length} />}
+      summary={<Summary count={items.length} amountAverage={amountAverage} />}
       tradeItemsFilter={
         <TradeItemsFilter
           itemsFilter={itemsFilter}
