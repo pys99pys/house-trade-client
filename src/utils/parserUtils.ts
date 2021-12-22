@@ -1,3 +1,5 @@
+import { FavoriteItem } from "../models/favoriteItemsModel";
+import { ItemsSort } from "../models/filterModels";
 import { TradeItem } from "../models/tradeItemModels";
 import { calendarFormat, sizeFormat } from "./formatUtils";
 
@@ -14,4 +16,43 @@ export const parseToTradeItem = (row: any): TradeItem => {
     address: row["법정동"].trim(),
     floor: row["층"],
   };
+};
+
+export const getFavoriteFilteredItems = (
+  items: TradeItem[],
+  favoriteItems: FavoriteItem[],
+  isShowFavoriteItems: boolean
+): TradeItem[] => {
+  if (!isShowFavoriteItems) {
+    return items;
+  }
+
+  return items.filter(
+    (item) =>
+      !!favoriteItems.find(
+        (favoriteItem) =>
+          favoriteItem.address === item.address &&
+          favoriteItem.apartName === item.apartName
+      )
+  );
+};
+
+export const getSortedItems = (
+  items: TradeItem[],
+  sort: ItemsSort
+): TradeItem[] => {
+  return items.sort((a, b) => {
+    const from = a[sort.column];
+    const to = b[sort.column];
+
+    if (sort.direction === "asc") {
+      return from > to ? 1 : -1;
+    }
+
+    if (sort.direction === "desc") {
+      return from > to ? -1 : 1;
+    }
+
+    return 0;
+  });
 };

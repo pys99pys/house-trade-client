@@ -1,8 +1,10 @@
 import { FC } from "react";
 import { TradeItem } from "../models/tradeItemModels";
-import TradeItems from "../components/TradeItems";
-import Summary from "../components/Summary";
 import useTradeItems from "../hooks/useTradeItems";
+import Summary from "../components/Summary";
+import TradeItemsLayout from "../layouts/TradeItemsLayout";
+import TradeItemsFilter from "../components/TradeItemsFilter";
+import TradeItems from "../components/TradeItems";
 
 interface TradeItemsContainerProps {
   isLoading: boolean;
@@ -16,21 +18,29 @@ const TradeItemsContainer: FC<TradeItemsContainerProps> = ({
   stateCode,
 }) => {
   const {
-    sortedItems,
+    filteredTradeItems,
     filteredFavoriteItems,
     sort,
+    itemsFilter,
     onSaveFavoriteItem,
     onRemoveFavoriteItem,
     onChangeSort,
+    onChangeItemsFilter,
   } = useTradeItems(items, stateCode);
 
   return (
-    <>
-      <Summary count={items.length} />
-      <div className="mt-2">
+    <TradeItemsLayout
+      summary={<Summary count={items.length} />}
+      tradeItemsFilter={
+        <TradeItemsFilter
+          itemsFilter={itemsFilter}
+          onChangeItemsFilter={onChangeItemsFilter}
+        />
+      }
+      tradeItems={
         <TradeItems
           isLoading={isLoading}
-          tradeItems={sortedItems}
+          tradeItems={filteredTradeItems}
           favoriteItems={filteredFavoriteItems}
           sort={sort}
           stateCode={stateCode}
@@ -38,8 +48,8 @@ const TradeItemsContainer: FC<TradeItemsContainerProps> = ({
           onRemoveFavoriteItem={onRemoveFavoriteItem}
           onChangeSort={onChangeSort}
         />
-      </div>
-    </>
+      }
+    />
   );
 };
 

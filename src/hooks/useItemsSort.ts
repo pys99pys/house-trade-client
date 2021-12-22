@@ -1,20 +1,16 @@
 import { useCallback, useState } from "react";
+import { ItemsSort } from "../models/filterModels";
 import { TradeItem } from "../models/tradeItemModels";
 
-export interface Sort {
-  column: keyof TradeItem;
-  direction: "asc" | "desc";
-}
-
-export type OnChangeSortHandler = (targetColumn: keyof TradeItem) => void;
+type OnChangeSortHandler = (targetColumn: keyof TradeItem) => void;
 
 interface ReturnType {
-  sort: Sort;
+  sort: ItemsSort;
   onChangeSort: OnChangeSortHandler;
 }
 
-const getSortInStorage = (): Sort => {
-  const defaultSort: Sort = {
+const getSortInStorage = (): ItemsSort => {
+  const defaultSort: ItemsSort = {
     column: "tradeDate",
     direction: "desc",
   };
@@ -27,17 +23,17 @@ const getSortInStorage = (): Sort => {
   }
 };
 
-const setSortToStorage = (sort: Sort): Sort => {
+const setSortToStorage = (sort: ItemsSort): ItemsSort => {
   window.localStorage.setItem("sort", JSON.stringify(sort));
   return getSortInStorage();
 };
 
 const useItemsFilter = (): ReturnType => {
-  const [sort, setSort] = useState<Sort>(getSortInStorage());
+  const [sort, setSort] = useState<ItemsSort>(getSortInStorage());
 
   const onChangeSort: OnChangeSortHandler = useCallback(
     (targetColumn) => {
-      let afterSort: Sort;
+      let afterSort: ItemsSort;
 
       if (targetColumn === sort.column) {
         afterSort = {

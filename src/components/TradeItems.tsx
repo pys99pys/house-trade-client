@@ -7,7 +7,7 @@ import {
 import classNames from "classnames";
 import { TradeItem as TradeItemType } from "../models/tradeItemModels";
 import { FavoriteItem } from "../models/favoriteItemsModel";
-import { Sort, OnChangeSortHandler } from "../hooks/useItemsSort";
+import { ItemsSort } from "../models/filterModels";
 import { border } from "../styles/variables";
 import Icon from "../elements/Icon";
 import TradeItem from "./TradeItem";
@@ -16,11 +16,11 @@ interface TradeItemsProps {
   isLoading: boolean;
   tradeItems: TradeItemType[];
   favoriteItems: FavoriteItem[];
-  sort: Sort;
+  sort: ItemsSort;
   stateCode: string;
   onSaveFavoriteItem: (favoriteItem: Omit<FavoriteItem, "id">) => void;
   onRemoveFavoriteItem: (id: number) => void;
-  onChangeSort: OnChangeSortHandler;
+  onChangeSort: (targetColumn: keyof TradeItemType) => void;
 }
 
 const tableItems: { key: keyof TradeItemType | null; label: String }[] = [
@@ -122,6 +122,7 @@ const TradeItems: FC<TradeItemsProps> = ({
 
             return (
               <TradeItem
+                key={index}
                 index={index}
                 item={item}
                 favoriteItem={favoriteItem}

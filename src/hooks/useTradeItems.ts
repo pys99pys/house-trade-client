@@ -2,41 +2,41 @@ import { useMemo } from "react";
 import { TradeItem } from "../models/tradeItemModels";
 import useFavoriteItems from "./useFavoriteItems";
 import useItemsSort from "./useItemsSort";
+import useItemsFIlter from "./useItemsFIlter";
+import { getFavoriteFilteredItems, getSortedItems } from "../utils/parserUtils";
 
 const useTradeItems = (items: TradeItem[], stateCode: string) => {
   const { sort, onChangeSort } = useItemsSort();
   const { favoriteItems, onSaveFavoriteItem, onRemoveFavoriteItem } =
     useFavoriteItems();
+  const { itemsFilter, onChangeItemsFilter } = useItemsFIlter();
 
   const filteredFavoriteItems = useMemo(
     () => favoriteItems.filter((item) => item.stateCode === stateCode),
     [favoriteItems, stateCode]
   );
 
-  const sortedItems = useMemo(() => {
-    return items.sort((a, b) => {
-      const from = a[sort.column];
-      const to = b[sort.column];
+  const filteredTradeItems = useMemo(() => {
+    const favoriteFilteredItems = getFavoriteFilteredItems(
+      items,
+      filteredFavoriteItems,
+      itemsFilter.isShowFavoriteItems
+    );
 
-      if (sort.direction === "asc") {
-        return from > to ? 1 : -1;
-      }
+    const sortedItems = getSortedItems(favoriteFilteredItems, sort);
 
-      if (sort.direction === "desc") {
-        return from > to ? -1 : 1;
-      }
-
-      return 0;
-    });
-  }, [items, sort]);
+    return sortedItems;
+  }, [items, filteredFavoriteItems, itemsFilter, sort]);
 
   return {
-    sortedItems,
+    filteredTradeItems,
     filteredFavoriteItems,
     sort,
+    itemsFilter,
     onSaveFavoriteItem,
     onRemoveFavoriteItem,
     onChangeSort,
+    onChangeItemsFilter,
   };
 };
 
