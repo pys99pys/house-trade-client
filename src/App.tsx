@@ -1,45 +1,18 @@
-import TradeItemsContainer from "./containers/TradeItemsContainer";
+import { RecoilRoot } from "recoil";
 import AppLayout from "./layouts/AppLayout";
 import SearchForm from "./components/SearchForm";
 import FavoriteFilterItems from "./components/FavoriteFilterItems";
-import useApp from "./hooks/useApp";
+import TradeItemsTable from "./components/TradeItemsTable";
 
 function App() {
-  const {
-    isLoading,
-    searchForm,
-    tradeItems,
-    filters,
-    onChangeDate,
-    onChangeCityName,
-    onChangeStateCode,
-    onCreateFilter,
-    onRemoveFavoriteFilter,
-    onFetchWithStateCode,
-  } = useApp();
-
   return (
-    <AppLayout
-      searchForm={
-        <SearchForm
-          form={searchForm}
-          onSaveFilter={onCreateFilter}
-          onChangeDate={onChangeDate}
-          onChangeCityName={onChangeCityName}
-          onChangeStateCode={onChangeStateCode}
-        />
-      }
-      favoriteFilterItems={
-        <FavoriteFilterItems
-          items={filters}
-          onSelect={onFetchWithStateCode}
-          onRemove={onRemoveFavoriteFilter}
-        />
-      }
-      tradeItems={
-        <TradeItemsContainer isLoading={isLoading} items={tradeItems} />
-      }
-    />
+    <RecoilRoot>
+      <AppLayout
+        searchForm={<SearchForm />}
+        favoriteFilterItems={<FavoriteFilterItems />}
+        tradeItems={<TradeItemsTable />}
+      />
+    </RecoilRoot>
   );
 }
 

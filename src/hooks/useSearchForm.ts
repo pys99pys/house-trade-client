@@ -1,36 +1,65 @@
 import { useCallback, useState } from "react";
-import { SearchForm } from "../models/searchFormModels";
+import { ISearchForm } from "../models/searchFormModels";
 
-type OnChangeSearchFormHandler = (afterForm: Partial<SearchForm>) => SearchForm;
+type OnChangeSearchFormHandler = (
+  afterForm: Partial<ISearchForm>
+) => ISearchForm;
+
+type OnChangeTradeMonthHandler = (tradeMonth: string) => ISearchForm;
+
+type OnChangeCityNameHandler = (cityName: string) => ISearchForm;
+
+type OnChangeStateCodeHandler = (stateCode: string) => ISearchForm;
 
 interface ReturnType {
-  searchForm: SearchForm;
-  onChangeSearchForm: OnChangeSearchFormHandler;
+  form: ISearchForm;
+  onChangeForm: OnChangeSearchFormHandler;
+  onChangeTradeMonth: OnChangeTradeMonthHandler;
+  onChangeCityName: OnChangeCityNameHandler;
+  onChangeStateCode: OnChangeStateCodeHandler;
 }
 
 const useSearchForm = (): ReturnType => {
-  const [searchForm, setSearchForm] = useState<SearchForm>({
-    date: new Date().toISOString().substring(0, 7),
+  const [form, setForm] = useState<ISearchForm>({
+    tradeMonth: new Date().toISOString().substring(0, 7),
     cityName: "",
     stateCode: "",
   });
 
-  const onChangeSearchForm: OnChangeSearchFormHandler = useCallback(
-    (afterForm): SearchForm => {
+  const onChangeForm: OnChangeSearchFormHandler = useCallback(
+    (afterForm): ISearchForm => {
       const mergedForm = {
-        ...searchForm,
+        ...form,
         ...afterForm,
       };
 
-      setSearchForm(mergedForm);
+      setForm(mergedForm);
       return mergedForm;
     },
-    [searchForm]
+    [form]
+  );
+
+  const onChangeTradeMonth: OnChangeTradeMonthHandler = useCallback(
+    (tradeMonth) => onChangeForm({ tradeMonth }),
+    [onChangeForm]
+  );
+
+  const onChangeCityName: OnChangeCityNameHandler = useCallback(
+    (cityName) => onChangeForm({ cityName }),
+    [onChangeForm]
+  );
+
+  const onChangeStateCode: OnChangeStateCodeHandler = useCallback(
+    (stateCode) => onChangeForm({ stateCode }),
+    [onChangeForm]
   );
 
   return {
-    searchForm,
-    onChangeSearchForm,
+    form,
+    onChangeForm,
+    onChangeTradeMonth,
+    onChangeCityName,
+    onChangeStateCode,
   };
 };
 

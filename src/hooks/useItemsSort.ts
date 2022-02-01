@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
-import { ItemsSort } from "../models/filterModels";
-import { TradeItem } from "../models/tradeItemModels";
+import { ItemsSort } from "../models/itemsSortModels";
+import { ITradeItem } from "../models/tradeItemModels";
 
-type OnChangeSortHandler = (targetColumn: keyof TradeItem) => void;
+type OnChangeSortHandler = (targetColumn: keyof ITradeItem) => void;
 
 interface ReturnType {
   sort: ItemsSort;

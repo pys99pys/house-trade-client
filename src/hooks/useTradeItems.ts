@@ -18,7 +18,7 @@ const useTradeItems = (items: TradeItem[]) => {
       itemsFilter.isShowFavoriteItems
     );
 
-    const sortedItems = getSortedItems(favoriteFilteredItems, sort);
+    const sortedItems = getSortedItems(favoriteFilteredItems, "" as any);
 
     return sortedItems;
   }, [items, favoriteItems, itemsFilter, sort]);

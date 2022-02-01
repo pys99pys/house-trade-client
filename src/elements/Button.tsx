@@ -14,6 +14,7 @@ interface ButtonProps {
   icon?: IconDefinition;
   size?: "default" | "small";
   color?: Color;
+  className?: string;
   onClick?: () => void;
 }
 
@@ -21,12 +22,14 @@ const Button: FC<ButtonProps> = ({
   icon,
   size = "default",
   color = "button",
+  className,
   onClick,
   children,
 }) => {
   return (
     <button
       className={classnames(
+        className,
         rounded,
         getBackgroundColor(color),
         "cursor-pointer",

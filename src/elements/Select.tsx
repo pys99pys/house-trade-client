@@ -17,7 +17,12 @@ const Select: FC<SelectProps> = ({
 }) => {
   return (
     <select
-      className={classnames(inputAndButtonHeightBase, border, rounded, "px-2")}
+      className={classnames(
+        inputAndButtonHeightBase,
+        border,
+        rounded,
+        "w-full px-2"
+      )}
       value={value}
       onChange={(e) => onChange((e.target as HTMLSelectElement).value)}
     >

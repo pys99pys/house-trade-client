@@ -1,20 +1,24 @@
 import { useCallback } from "react";
-import { SearchForm } from "../models/searchFormModels";
+import { ISearchForm } from "../models/searchFormModels";
 import useData from "./useData";
 import useFavoriteFilters from "./useFavoriteFilters";
 import useSearchForm from "./useSearchForm";
 import landCodes from "../jsons/landCodes.json";
 
 const useApp = () => {
-  const { searchForm, onChangeSearchForm } = useSearchForm();
+  const { form: searchForm, onChangeForm: onChangeSearchForm } =
+    useSearchForm();
   const { isLoading, tradeItems, onFetch } = useData();
-  const { filters, onSaveFavoriteFilter, onRemoveFavoriteFilter } =
-    useFavoriteFilters();
+  const {
+    favoriteFilters: filters,
+    onSaveFavoriteFilter,
+    onRemoveFavoriteFilter,
+  } = useFavoriteFilters();
 
   const onFetchWithSearchForm = useCallback(
-    (afterForm: SearchForm) => {
-      if (afterForm.date && afterForm.stateCode) {
-        onFetch(afterForm.date, afterForm.stateCode);
+    (afterForm: ISearchForm) => {
+      if (afterForm.tradeMonth && afterForm.stateCode) {
+        onFetch(afterForm.tradeMonth, afterForm.stateCode);
       }
     },
     [onFetch]
@@ -26,8 +30,8 @@ const useApp = () => {
         item.children.find((child) => child.code === stateCode)
       )?.name;
 
-      if (searchForm.date && cityName) {
-        onFetch(searchForm.date, stateCode);
+      if (searchForm.tradeMonth && cityName) {
+        onFetch(searchForm.tradeMonth, stateCode);
         onChangeSearchForm({ cityName, stateCode });
       }
     },
@@ -36,7 +40,7 @@ const useApp = () => {
 
   const onChangeDate = useCallback(
     (date: string) => {
-      const afterForm = onChangeSearchForm({ date });
+      const afterForm = onChangeSearchForm({ tradeMonth: date });
       onFetchWithSearchForm(afterForm);
     },
     [onChangeSearchForm, onFetchWithSearchForm]
@@ -70,7 +74,7 @@ const useApp = () => {
       stateCode: searchForm.stateCode,
       cityName: searchForm.cityName,
       stateName,
-    });
+    } as any);
   }, [searchForm, onSaveFavoriteFilter]);
 
   return {

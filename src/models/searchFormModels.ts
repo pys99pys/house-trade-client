@@ -1,5 +1,5 @@
-export interface SearchForm {
-  date: string;
+export interface ISearchForm {
+  tradeMonth: string;
   cityName: string;
   stateCode: string;
 }

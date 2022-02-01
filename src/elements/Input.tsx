@@ -12,7 +12,12 @@ const Input: FC<InputProps> = ({ type = "text", value, onChange }) => {
   return (
     <input
       type={type}
-      className={classnames(inputAndButtonHeightBase, border, rounded, "px-4")}
+      className={classnames(
+        inputAndButtonHeightBase,
+        border,
+        rounded,
+        "w-full px-4"
+      )}
       value={value}
       onChange={(e) => onChange((e.target as HTMLInputElement).value)}
     />

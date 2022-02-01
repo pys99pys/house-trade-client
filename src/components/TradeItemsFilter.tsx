@@ -1,24 +1,24 @@
 import { FC } from "react";
 import Checkbox from "../elements/Checkbox";
-import { ItemsFilter } from "../models/filterModels";
+import { IItemsFilter } from "../stores/itemsFilterStore";
 
 interface TradeItemsFilterProps {
-  itemsFilter: ItemsFilter;
-  onChangeItemsFilter: (itemsFilter: Partial<ItemsFilter>) => void;
+  filters: IItemsFilter;
+  onChangeFilter: (targetFilters: Partial<IItemsFilter>) => void;
 }
 
 const TradeItemsFilter: FC<TradeItemsFilterProps> = ({
-  itemsFilter,
-  onChangeItemsFilter,
+  filters,
+  onChangeFilter,
 }) => {
   return (
-    <div>
+    <div className="flex items-center">
       <Checkbox
         size="small"
-        checked={itemsFilter.isShowFavoriteItems}
+        checked={filters.isOnlyShowFavoriteItems}
         onClick={() =>
-          onChangeItemsFilter({
-            isShowFavoriteItems: !itemsFilter.isShowFavoriteItems,
+          onChangeFilter({
+            isOnlyShowFavoriteItems: !filters.isOnlyShowFavoriteItems,
           })
         }
       >

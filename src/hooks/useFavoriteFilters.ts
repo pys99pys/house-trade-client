@@ -1,31 +1,37 @@
 import { useCallback, useState } from "react";
-import { FavoriteFilterItem } from "../models/filterModels";
+import { IFavoriteFilterItem } from "../models/favoriteFilterModels";
+import {
+  getCityNameWithStateCode,
+  getStateNameWithStateCode,
+} from "../utils/helpers";
 
-type OnSaveFavoriteFilterHandler = (item: FavoriteFilterItem) => void;
+type OnSaveFavoriteFilterHandler = (stateCode: string) => void;
 type OnRemoveFavoriteFilterHandler = (stateCode: string) => void;
 
 interface ReturnType {
-  filters: FavoriteFilterItem[];
+  favoriteFilters: IFavoriteFilterItem[];
   onSaveFavoriteFilter: OnSaveFavoriteFilterHandler;
   onRemoveFavoriteFilter: OnRemoveFavoriteFilterHandler;
 }
 
-const getFilters = (): FavoriteFilterItem[] => {
+const STORAGE_KEY = "FAVORITE_FILTERS";
+
+const getFilters = (): IFavoriteFilterItem[] => {
   try {
-    const savedFilters = window.localStorage.getItem("filters");
+    const savedFilters = window.localStorage.getItem(STORAGE_KEY);
     return savedFilters ? JSON.parse(savedFilters) : [];
   } catch {
     return [];
   }
 };
 
-const setFilter = (item: FavoriteFilterItem): FavoriteFilterItem[] => {
+const setFilter = (item: IFavoriteFilterItem): IFavoriteFilterItem[] => {
   const filters = getFilters();
-  const alreadyAdded = !!filters.find(
+  const alreadySaved = !!filters.find(
     (filter) => filter.stateCode === item.stateCode
   );
 
-  if (alreadyAdded) {
+  if (alreadySaved) {
     return getFilters();
   }
 
@@ -39,25 +45,37 @@ const setFilter = (item: FavoriteFilterItem): FavoriteFilterItem[] => {
     return 0;
   });
 
-  window.localStorage.setItem("filters", JSON.stringify(sortedFilters));
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(sortedFilters));
   return getFilters();
 };
 
-const removeFilter = (stateCode: string): FavoriteFilterItem[] => {
+const removeFilter = (stateCode: string): IFavoriteFilterItem[] => {
   const filters = getFilters();
   const afterFilters = filters.filter((item) => item.stateCode !== stateCode);
 
-  window.localStorage.setItem("filters", JSON.stringify(afterFilters));
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(afterFilters));
   return getFilters();
 };
 
 const useFavoriteFilters = (): ReturnType => {
-  const [filters, setFilters] = useState<FavoriteFilterItem[]>(getFilters());
+  const [favoriteFilters, setFavoriteFilters] = useState<IFavoriteFilterItem[]>(
+    getFilters()
+  );
 
   const onSaveFavoriteFilter: OnSaveFavoriteFilterHandler = useCallback(
-    (item) => {
-      const afterFilters = setFilter(item);
-      setFilters(afterFilters);
+    (stateCode) => {
+      const cityName = getCityNameWithStateCode(stateCode);
+      const stateName = getStateNameWithStateCode(stateCode);
+
+      if (cityName && stateName) {
+        const afterFilters = setFilter({
+          stateCode,
+          cityName,
+          stateName,
+        });
+
+        setFavoriteFilters(afterFilters);
+      }
     },
     []
   );
@@ -65,13 +83,13 @@ const useFavoriteFilters = (): ReturnType => {
   const onRemoveFavoriteFilter: OnRemoveFavoriteFilterHandler = useCallback(
     (stateCode: string) => {
       const afterFilters = removeFilter(stateCode);
-      setFilters(afterFilters);
+      setFavoriteFilters(afterFilters);
     },
     []
   );
 
   return {
-    filters,
+    favoriteFilters,
     onSaveFavoriteFilter,
     onRemoveFavoriteFilter,
   };
