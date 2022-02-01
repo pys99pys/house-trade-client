@@ -34,9 +34,11 @@ const TradeItemsTableRow: FC<TradeItemsTableRowProps> = ({
         {item.apartName}
       </td>
       <td className={classNames(border, "p-4 text-center")}>
-        <span className="inline-flex items-center">
+        <span className="md:inline-flex md:items-center">
           {item.flastSize}평{" "}
-          <small className="ml-1 text-gray-500">({item.areaSize}㎡)</small>
+          <small className="block ml-1 text-gray-500">
+            ({item.areaSize}㎡)
+          </small>
         </span>
       </td>
       <td className={classNames(border, "p-4 text-center")}>{item.floor}</td>
@@ -44,9 +46,9 @@ const TradeItemsTableRow: FC<TradeItemsTableRowProps> = ({
         {item.buildedYear}
       </td>
       <td className={classNames(border, "p-4 text-center")}>
-        <span className="inline-flex items-center">
+        <span className="md:inline-flex md:items-center">
           <strong>{amountFormat(item.tradeAmount)}</strong>
-          <small className="ml-1 text-gray-500">
+          <small className="block ml-1 text-gray-500">
             ({averageAmountFormat(item.tradeAmount / item.flastSize)})
           </small>
         </span>

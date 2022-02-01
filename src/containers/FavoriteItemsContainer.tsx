@@ -7,17 +7,11 @@ const FavoriteFilterItemsContainer: FC = () => {
     useFavoriteFiltersStore();
 
   return (
-    <>
-      {favoriteFilters.map((stateCode) => (
-        <span key={stateCode} className="mr-1 mb-1">
-          <FavoriteFilterItems
-            favoriteFilters={favoriteFilters}
-            onSelectFavoriteFilter={() => onSelectFavoriteFilter(stateCode)}
-            onRemoveFavoriteFilter={() => onRemoveFavoriteFilter(stateCode)}
-          />
-        </span>
-      ))}
-    </>
+    <FavoriteFilterItems
+      favoriteFilters={favoriteFilters}
+      onSelectFavoriteFilter={onSelectFavoriteFilter}
+      onRemoveFavoriteFilter={onRemoveFavoriteFilter}
+    />
   );
 };
 

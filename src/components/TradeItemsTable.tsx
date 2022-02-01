@@ -27,24 +27,26 @@ const TradeItemsTable: FC<TradeItemsTableProps> = ({
   onRemoveFavoriteItemKey,
 }) => {
   return (
-    <table className="w-full">
-      <thead>
-        <TradeItemsTableHead
-          itemsSort={itemsSort}
-          onChangeItemsSort={onChangeItemsSort}
-        />
-      </thead>
-      <tbody>
-        <TradeItemsTableBody
-          loading={loading}
-          tradeItems={tradeItems}
-          searchForm={searchForm}
-          favoriteItemKeys={favoriteItemKeys}
-          onSaveFavoriteItem={onSaveFavoriteItemKey}
-          onRemoveFavoriteItem={onRemoveFavoriteItemKey}
-        />
-      </tbody>
-    </table>
+    <div className="overflow-x-auto">
+      <table className="w-full">
+        <thead>
+          <TradeItemsTableHead
+            itemsSort={itemsSort}
+            onChangeItemsSort={onChangeItemsSort}
+          />
+        </thead>
+        <tbody>
+          <TradeItemsTableBody
+            loading={loading}
+            tradeItems={tradeItems}
+            searchForm={searchForm}
+            favoriteItemKeys={favoriteItemKeys}
+            onSaveFavoriteItem={onSaveFavoriteItemKey}
+            onRemoveFavoriteItem={onRemoveFavoriteItemKey}
+          />
+        </tbody>
+      </table>
+    </div>
   );
 };
 

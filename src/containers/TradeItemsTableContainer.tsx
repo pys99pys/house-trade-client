@@ -44,7 +44,7 @@ const TradeItemsTableContainer: FC<TradeItemsTableContainerProps> = () => {
         itemsFilters={itemsFilterState}
         onChangeItemsFilter={onChangeItemsFilter}
       />
-      <div className="mt-2">
+      <div className="mt-3">
         <TradeItemsTable
           loading={loading}
           tradeItems={tradeItems}
