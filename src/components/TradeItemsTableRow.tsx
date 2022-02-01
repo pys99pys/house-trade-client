@@ -1,7 +1,7 @@
 import { FC } from "react";
 import classNames from "classnames";
-import { ITradeItem } from "../models/tradeItemModels";
-import { amountFormat, averageAmountFormat } from "../utils/formatUtils";
+import { ITradeItem } from "../hooks/useTradeItems";
+import { amountFormat, averageAmountFormat } from "../utils/formatters";
 import { border } from "../styles/variables";
 import Button from "../elements/Button";
 

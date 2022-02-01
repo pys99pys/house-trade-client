@@ -1,11 +1,17 @@
 import { FC } from "react";
-import useFavoriteFiltersStore from "../hooks/useFavoriteFiltersStore";
 import FavoriteFilterItem from "./FavoriteFilterItem";
 
-const FavoriteFilterItems: FC = () => {
-  const { favoriteFilters, onSelectFavoriteFilter, onRemoveFavoriteFilter } =
-    useFavoriteFiltersStore();
+interface FavoriteFilterItemsProps {
+  favoriteFilters: string[];
+  onSelectFavoriteFilter: (stateCode: string) => void;
+  onRemoveFavoriteFilter: (stateCode: string) => void;
+}
 
+const FavoriteFilterItems: FC<FavoriteFilterItemsProps> = ({
+  favoriteFilters,
+  onSelectFavoriteFilter,
+  onRemoveFavoriteFilter,
+}) => {
   return (
     <div className="flex flex-wrap">
       {favoriteFilters.map((stateCode) => (

@@ -7,7 +7,7 @@ import {
   inputAndButtonHeightBase,
   inputAndButtonHeightSmall,
 } from "../styles/variables";
-import { getBackgroundColor } from "../utils/tailwindUtils";
+import { getBackgroundColor } from "../utils/tailwinds";
 import Icon from "./Icon";
 
 interface ButtonProps {

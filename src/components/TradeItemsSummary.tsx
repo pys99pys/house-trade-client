@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { averageAmountFormat } from "../utils/formatUtils";
+import { averageAmountFormat } from "../utils/formatters";
 
 interface TradeItemsSummaryProps {
   tradeItemsCount: number;

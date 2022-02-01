@@ -1,4 +1,4 @@
-import { ITradeItem } from "../hooks/useTradeItems2";
+import { ITradeItem } from "../hooks/useTradeItems";
 import landCodes from "../jsons/landCodes.json";
 
 export const getFavoriteItemKey = (

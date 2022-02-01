@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useRecoilState } from "recoil";
-import { ITradeItem } from "../hooks/useTradeItems2";
+import { ITradeItem } from "./useTradeItems";
 import itemsSortStore, {
   IItemsSort,
   setItemsSortToStorage,

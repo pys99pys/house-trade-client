@@ -1,21 +1,25 @@
 import { FC } from "react";
-import useSearchFormStore from "../hooks/useSearchFormStore";
+import { ISearchForm } from "../stores/searchFormStore";
 import Button from "../elements/Button";
 import Input from "../elements/Input";
 import CitySelect from "./CitySelect";
 import StateSelect from "./StateSelect";
-import useFavoriteFiltersStore from "../hooks/useFavoriteFiltersStore";
 
-const SearchForm: FC = () => {
-  const {
-    searchForm,
-    onChangeTradeMonth,
-    onChangeCityName,
-    onChangeStateCode,
-  } = useSearchFormStore();
+interface SearchFormProps {
+  searchForm: ISearchForm;
+  onChangeTradeMonth: (tradeMonth: string) => void;
+  onChangeCityName: (cityName: string) => void;
+  onChangeStateCode: (stateCode: string) => void;
+  onSaveFavoriteFilter: (stateCode: string) => void;
+}
 
-  const { onSaveFavoriteFilter } = useFavoriteFiltersStore();
-
+const SearchForm: FC<SearchFormProps> = ({
+  searchForm,
+  onChangeTradeMonth,
+  onChangeCityName,
+  onChangeStateCode,
+  onSaveFavoriteFilter,
+}) => {
   return (
     <ul className="flex flex-wrap">
       <li className="w-full mb-2 md:w-auto md:mb-0 md:mr-2">

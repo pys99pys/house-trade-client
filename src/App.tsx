@@ -1,18 +1,15 @@
 import { RecoilRoot } from "recoil";
+import { ApolloProvider } from "@apollo/client";
+import apolloClient from "./apollo-client";
 import AppLayout from "./layouts/AppLayout";
-import SearchForm from "./components/SearchForm";
-import FavoriteFilterItems from "./components/FavoriteFilterItems";
-import TradeItemsTable from "./components/TradeItemsTable";
 
 function App() {
   return (
-    <RecoilRoot>
-      <AppLayout
-        searchForm={<SearchForm />}
-        favoriteFilterItems={<FavoriteFilterItems />}
-        tradeItems={<TradeItemsTable />}
-      />
-    </RecoilRoot>
+    <ApolloProvider client={apolloClient}>
+      <RecoilRoot>
+        <AppLayout />
+      </RecoilRoot>
+    </ApolloProvider>
   );
 }
 

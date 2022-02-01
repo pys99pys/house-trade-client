@@ -2,7 +2,7 @@ import { FC } from "react";
 import classNames from "classnames";
 import { border } from "../styles/variables";
 import { isFavoriteTradeItem } from "../utils/helpers";
-import { ITradeItem } from "../hooks/useTradeItems2";
+import { ITradeItem } from "../hooks/useTradeItems";
 import TradeItemsTableRow from "./TradeItemsTableRow";
 import TradeItemsLoading from "./TradeItemsLoading";
 import { ISearchForm } from "../stores/searchFormStore";

@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { ITradeItem } from "../hooks/useTradeItems2";
+import { ITradeItem } from "../hooks/useTradeItems";
 
 export interface IItemsSort {
   column: keyof ITradeItem;

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { faChevronUp, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { IItemsSort } from "../stores/itemsSortStore";
-import { ITradeItem } from "../hooks/useTradeItems2";
+import { ITradeItem } from "../hooks/useTradeItems";
 import { border } from "../styles/variables";
 import Icon from "../elements/Icon";
 

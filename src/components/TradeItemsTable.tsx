@@ -1,72 +1,50 @@
-import { FC, useCallback } from "react";
-import { getFavoriteItemKey } from "../utils/helpers";
-import useTradeItems, { ITradeItem } from "../hooks/useTradeItems2";
-import useSearchFormStore from "../hooks/useSearchFormStore";
-import useItemsSortStore from "../hooks/useItemsSortStore";
-import useFavoriteItemsStore from "../hooks/useFavoriteItemsStore";
-import useItemsFilterStore from "../hooks/useItemsFilterStore";
+import { FC } from "react";
+import { ITradeItem } from "../hooks/useTradeItems";
 import TradeItemsTableHead from "./TradeItemsTableHead";
-import TradeItemsSummary from "./TradeItemsSummary";
-import TradeItemsFilter from "./TradeItemsFilter";
 import TradeItemsTableBody from "./TradeItemsTableBody";
+import { ISearchForm } from "../stores/searchFormStore";
+import { IItemsSort } from "../stores/itemsSortStore";
 
-const TradeItemsTable: FC = () => {
-  const { loading, tradeItems, tradeAmountAverage } = useTradeItems();
-  const { searchForm } = useSearchFormStore();
-  const { itemsSort, onChangeItemsSort } = useItemsSortStore();
-  const { itemsFilterState, onChangeItemsFilter } = useItemsFilterStore();
-  const { favoriteItemKeys, onSaveFavoriteItemKey, onRemoveFavoriteItemKey } =
-    useFavoriteItemsStore();
+interface TradeItemsTableProps {
+  loading: boolean;
+  tradeItems: ITradeItem[];
+  searchForm: ISearchForm;
+  itemsSort: IItemsSort;
+  favoriteItemKeys: string[];
+  onChangeItemsSort: (column: keyof ITradeItem) => void;
+  onSaveFavoriteItemKey: (tradeItem: ITradeItem) => void;
+  onRemoveFavoriteItemKey: (tradeItem: ITradeItem) => void;
+}
 
-  const handleSaveFavoriteItem = useCallback(
-    (tradeItem: ITradeItem) => {
-      onSaveFavoriteItemKey(
-        getFavoriteItemKey(searchForm.stateCode, tradeItem)
-      );
-    },
-    [onSaveFavoriteItemKey, searchForm.stateCode]
-  );
-
-  const handleRemoveFavoriteItem = useCallback(
-    (tradeItem: ITradeItem) => {
-      onRemoveFavoriteItemKey(
-        getFavoriteItemKey(searchForm.stateCode, tradeItem)
-      );
-    },
-    [onRemoveFavoriteItemKey, searchForm.stateCode]
-  );
-
+const TradeItemsTable: FC<TradeItemsTableProps> = ({
+  loading,
+  tradeItems,
+  searchForm,
+  itemsSort,
+  favoriteItemKeys,
+  onChangeItemsSort,
+  onSaveFavoriteItemKey,
+  onRemoveFavoriteItemKey,
+}) => {
   return (
-    <div>
-      <div className="flex justify-between">
-        <TradeItemsSummary
-          tradeItemsCount={tradeItems.length}
-          tradeAmountAverage={tradeAmountAverage}
+    <table className="w-full">
+      <thead>
+        <TradeItemsTableHead
+          itemsSort={itemsSort}
+          onChangeItemsSort={onChangeItemsSort}
         />
-        <TradeItemsFilter
-          filters={itemsFilterState}
-          onChangeFilter={onChangeItemsFilter}
+      </thead>
+      <tbody>
+        <TradeItemsTableBody
+          loading={loading}
+          tradeItems={tradeItems}
+          searchForm={searchForm}
+          favoriteItemKeys={favoriteItemKeys}
+          onSaveFavoriteItem={onSaveFavoriteItemKey}
+          onRemoveFavoriteItem={onRemoveFavoriteItemKey}
         />
-      </div>
-      <table className="w-full mt-2">
-        <thead>
-          <TradeItemsTableHead
-            itemsSort={itemsSort}
-            onChangeItemsSort={onChangeItemsSort}
-          />
-        </thead>
-        <tbody>
-          <TradeItemsTableBody
-            loading={loading}
-            tradeItems={tradeItems}
-            searchForm={searchForm}
-            favoriteItemKeys={favoriteItemKeys}
-            onSaveFavoriteItem={handleSaveFavoriteItem}
-            onRemoveFavoriteItem={handleRemoveFavoriteItem}
-          />
-        </tbody>
-      </table>
-    </div>
+      </tbody>
+    </table>
   );
 };
 

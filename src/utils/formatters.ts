@@ -1,17 +1,3 @@
-export const calendarFormat = (n: number) => {
-  return n.toString().padStart(2, "0");
-};
-
-export const sizeFormat = (size: number): number => {
-  const area = size * 0.3025;
-
-  if (size < 84) {
-    return Math.floor(area + 8);
-  }
-
-  return Math.floor(area + 9);
-};
-
 export const amountFormat = (amount: number): string => {
   const dividedOneHundredMillion = amount / 100000000;
 
