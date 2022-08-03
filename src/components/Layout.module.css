@@ -1,0 +1,21 @@
+.header {
+  height: 7.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.main {
+  width: var(--container-width);
+  margin: 0 auto;
+}
+
+.searchFilterWrap {
+  margin-top: 1rem;
+}
+
+.tableWrap {
+  margin-top: 2.5rem;
+}

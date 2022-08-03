@@ -1,0 +1,45 @@
+@import "./reset.css";
+@import "./variables.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+body,
+input,
+select {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 1rem;
+  color: var(--color-black);
+}
+
+button {
+  border: none;
+  border-radius: var(--border-radius);
+  transition: background-color 300ms ease;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button.primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+button.primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+button.yellow {
+  background-color: var(--color-yellow);
+}
+
+button.yellow:hover {
+  background-color: var(--color-yellow-hover);
+}

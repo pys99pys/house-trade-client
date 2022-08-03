@@ -1,0 +1,31 @@
+.searchForm {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.searchForm select,
+.searchForm button {
+  height: var(--input-button-height);
+}
+
+.searchForm select {
+  flex: 0.25;
+  padding: 0 1rem;
+  border: 1px solid var(--color-gray8);
+  background-color: var(--color-gray8);
+  border-radius: var(--border-radius);
+  transition: background-color 300ms ease;
+  outline: none;
+}
+.searchForm select:hover {
+  background-color: var(--color-gray7);
+}
+
+.searchForm button {
+  width: 5rem;
+}
+
+.searchForm button svg {
+  margin-right: 0.1rem;
+  transform: translateY(1px);
+}
