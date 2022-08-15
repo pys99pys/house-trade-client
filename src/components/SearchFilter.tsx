@@ -1,29 +1,34 @@
 import { FC } from "react";
 import { FaTimes } from "react-icons/fa";
-import css from "./SearchFilter.module.css";
+import { SearchFilterItem } from "../models/SearchFilter";
+import Button from "./Button";
 import Icon from "./Icon";
+import css from "./SearchFilter.module.css";
 
-interface SearchFilterProps {}
+interface SearchFilterProps {
+  items: SearchFilterItem[];
+  onSelect: (code: string) => void;
+  onRemove: (code: string) => void;
+}
 
-const SearchFilter: FC<SearchFilterProps> = () => {
+const SearchFilter: FC<SearchFilterProps> = ({ items, onSelect, onRemove }) => {
   return (
     <ul className={css.searchFilter}>
-      <li>
-        <button>
-          서울시 강동구
-          <span>
-            <Icon icon={<FaTimes />} />
-          </span>
-        </button>
-      </li>
-      <li>
-        <button>
-          서울시 강남구
-          <span>
-            <Icon icon={<FaTimes />} />
-          </span>
-        </button>
-      </li>
+      {items.map((item) => (
+        <li key={item.code}>
+          <Button size="small">
+            {item.label}
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                onRemove(item.code);
+              }}
+            >
+              <Icon icon={<FaTimes />} />
+            </span>
+          </Button>
+        </li>
+      ))}
     </ul>
   );
 };

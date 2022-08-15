@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import Button from "./Button";
 import Icon from "./Icon";
 import css from "./Table.module.css";
 
@@ -51,9 +52,9 @@ const Table: FC<TableProps> = () => {
               </div>
             </td>
             <td>
-              <button type="button" className="yellow">
+              <Button size="small" color="yellow">
                 추가
-              </button>
+              </Button>
             </td>
           </tr>
           <tr>
@@ -73,9 +74,9 @@ const Table: FC<TableProps> = () => {
               </div>
             </td>
             <td>
-              <button type="button" className="yellow">
+              <Button size="small" color="yellow">
                 추가
-              </button>
+              </Button>
             </td>
           </tr>
         </tbody>

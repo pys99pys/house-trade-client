@@ -17,15 +17,7 @@
   transition: background-color 300ms ease;
   outline: none;
 }
+
 .searchForm select:hover {
   background-color: var(--color-gray7);
-}
-
-.searchForm button {
-  width: 5rem;
-}
-
-.searchForm button svg {
-  margin-right: 0.1rem;
-  transform: translateY(1px);
 }

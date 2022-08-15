@@ -1,3 +1,4 @@
+import { RecoilRoot } from "recoil";
 import Layout from "./components/Layout";
 import SearchFilterContainer from "./containers/SearchFilterContainer";
 import SearchFormContainer from "./containers/SearchFormContainer";
@@ -6,11 +7,13 @@ import "./styles/app.css";
 
 function App() {
   return (
-    <Layout
-      searchForm={<SearchFormContainer />}
-      searchFilter={<SearchFilterContainer />}
-      table={<TableContainer />}
-    />
+    <RecoilRoot>
+      <Layout
+        searchForm={<SearchFormContainer />}
+        searchFilter={<SearchFilterContainer />}
+        table={<TableContainer />}
+      />
+    </RecoilRoot>
   );
 }
 
