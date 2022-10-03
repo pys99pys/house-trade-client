@@ -1,11 +1,12 @@
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useRecoilState } from "recoil";
 import { SearchForm as SearchFormType } from "../models/SearchForm";
-import { LandCodeChildren } from "../models/landCode";
+import { LandCodeChildren } from "../models/LandCode";
 import { useSearchFilterStore } from "../stores/searchFilterStore";
 import { searchFormState } from "../stores/searchFormStore";
 import landCodes from "../jsons/landCodes.json";
 import SearchForm from "../components/SearchForm";
+import { useTradeItemsQuery } from "../queries/getTradeItemsQuery";
 
 interface SearchFormContainerProps {}
 
@@ -13,9 +14,11 @@ const getLandCodeItems = (cityName: string): LandCodeChildren[] =>
   landCodes.find((item) => item.name === cityName)?.children || [];
 
 const SearchFormContainer: FC<SearchFormContainerProps> = () => {
+  const [isSkipQuery, setIsSkipQuery] = useState(false);
   const [form, setForm] = useRecoilState(searchFormState);
 
   const { searchFilters, onAddFilter } = useSearchFilterStore();
+  useTradeItemsQuery(isSkipQuery, form);
 
   const landCodeItems = useMemo(
     () => getLandCodeItems(form.cityName),
@@ -31,6 +34,8 @@ const SearchFormContainer: FC<SearchFormContainerProps> = () => {
     key: keyof SearchFormType,
     value: SearchFormType[keyof SearchFormType]
   ) => {
+    setIsSkipQuery(true);
+
     const afterForm = {
       ...form,
       [key]: value,
@@ -45,7 +50,7 @@ const SearchFormContainer: FC<SearchFormContainerProps> = () => {
   };
 
   const handleSearch = () => {
-    alert("search!");
+    setIsSkipQuery(false);
   };
 
   const handleSave = () => {
