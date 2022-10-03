@@ -32,14 +32,14 @@ const SearchFilterContainer: FC = () => {
           const cityItem = getCityItemWithCode(code);
           const codeItem = getCodeItemWithCode(code);
 
-          return cityItem && codeItem
-            ? {
-                code,
-                label: `${cityItem.name} ${codeItem.name}`,
-              }
-            : null;
+          return {
+            code: codeItem?.code || "",
+            label:
+              cityItem && codeItem ? `${cityItem.name} ${codeItem.name}` : "",
+          };
         })
-        .filter((item) => item !== null) as SearchFilterItem[],
+        .filter((item) => item !== null)
+        .sort((a, b) => (a.label > b.label ? 1 : -1)),
     [searchFilters]
   );
 
