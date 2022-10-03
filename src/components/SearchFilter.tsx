@@ -16,7 +16,7 @@ const SearchFilter: FC<SearchFilterProps> = ({ items, onSelect, onRemove }) => {
     <ul className={css.searchFilter}>
       {items.map((item) => (
         <li key={item.code}>
-          <Button size="small">
+          <Button size="small" onClick={() => onSelect(item.code)}>
             {item.label}
             <span
               onClick={(e) => {

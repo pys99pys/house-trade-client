@@ -1,10 +1,12 @@
 import { FC } from "react";
+import { FaSearch, FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { SearchForm as SearchFormType } from "../models/SearchForm";
 import Button from "./Button";
 import css from "./SearchForm.module.css";
 
 interface SearchFormProps {
   form: SearchFormType;
+  isSavedSearchFilter: boolean;
   landCodeItems: {
     code: string;
     name: string;
@@ -13,13 +15,16 @@ interface SearchFormProps {
     key: keyof SearchFormType,
     value: SearchFormType[keyof SearchFormType]
   ) => void;
+  onSearch: () => void;
   onSave: () => void;
 }
 
 const SearchForm: FC<SearchFormProps> = ({
   form,
+  isSavedSearchFilter,
   landCodeItems,
   onChange,
+  onSearch,
   onSave,
 }) => {
   return (
@@ -59,15 +64,24 @@ const SearchForm: FC<SearchFormProps> = ({
         value={form.code}
         onChange={(e) => onChange("code", e.target.value)}
       >
-        <option value="">시/군/구 선택</option>
         {landCodeItems.map((item) => (
           <option key={item.code} value={item.code}>
             {item.name}
           </option>
         ))}
       </select>
-      <Button color="yellow">저장</Button>
-      <Button color="primary">검색</Button>
+      <Button icon={<FaSearch />} color="primary" onClick={onSearch}>
+        검색
+      </Button>
+      <Button
+        icon={isSavedSearchFilter ? <FaBookmark /> : <FaRegBookmark />}
+        color="yellow"
+        disabled={isSavedSearchFilter}
+        onClick={onSave}
+      >
+        {isSavedSearchFilter && "저장됨"}
+        {!isSavedSearchFilter && "저장"}
+      </Button>
     </form>
   );
 };

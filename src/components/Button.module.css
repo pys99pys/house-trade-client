@@ -1,6 +1,8 @@
 .button {
   height: var(--input-button-height);
   padding: 0 1.25rem;
+  display: inline-block;
+  align-items: center;
   border: none;
   border-radius: var(--border-radius);
   background-color: var(--color-gray7);
@@ -8,30 +10,44 @@
   color: var(--color-gray1);
 }
 
-.button:hover {
+.button:not(:disabled):hover {
   background-color: var(--color-gray6);
   cursor: pointer;
 }
 
-.button.sizeSmall {
+.button:disabled:hover {
+  cursor: not-allowed;
+}
+
+.button.small {
   height: 2.5rem;
   padding: 0 0.75rem;
   font-size: 0.85rem;
 }
 
-.button.colorPrimary {
+.button.disabled {
+  opacity: 0.8;
+}
+
+.button.primary {
   background-color: var(--color-primary);
   color: var(--color-white);
 }
 
-.button.colorPrimary:hover {
+.button.primary:not(:disabled):hover {
   background-color: var(--color-primary-hover);
 }
 
-.button.colorYellow {
+.button.yellow {
   background-color: var(--color-yellow);
 }
 
-.button.colorYellow:hover {
+.button.yellow:not(:disabled):hover {
   background-color: var(--color-yellow-hover);
+}
+
+.button .icon {
+  margin-right: 0.25rem;
+  display: inline-block;
+  transform: translateY(2px);
 }

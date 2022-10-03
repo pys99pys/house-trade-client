@@ -1,20 +1,30 @@
 import { FC, useMemo } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { SearchForm as SearchFormType } from "../models/SearchForm";
+import { LandCodeChildren } from "../models/landCode";
+import { useSearchFilterStore } from "../stores/searchFilterStore";
 import { searchFormState } from "../stores/searchFormStore";
-import { searchFilterState } from "../stores/searchFilterStore";
 import landCodes from "../jsons/landCodes.json";
 import SearchForm from "../components/SearchForm";
 
 interface SearchFormContainerProps {}
 
+const getLandCodeItems = (cityName: string): LandCodeChildren[] =>
+  landCodes.find((item) => item.name === cityName)?.children || [];
+
 const SearchFormContainer: FC<SearchFormContainerProps> = () => {
   const [form, setForm] = useRecoilState(searchFormState);
-  const [searchFilter, setSearchFilter] = useRecoilState(searchFilterState);
+
+  const { searchFilters, onAddFilter } = useSearchFilterStore();
 
   const landCodeItems = useMemo(
-    () => landCodes.find((item) => item.name === form.cityName)?.children || [],
+    () => getLandCodeItems(form.cityName),
     [form.cityName]
+  );
+
+  const isSavedSearchFilter = useMemo(
+    () => searchFilters.some((filter) => filter === form.code),
+    [form.code, searchFilters]
   );
 
   const handleChange = (
@@ -27,21 +37,28 @@ const SearchFormContainer: FC<SearchFormContainerProps> = () => {
     };
 
     if (key === "cityName") {
-      afterForm.code = "";
+      const landCodeItems = getLandCodeItems(afterForm.cityName);
+      afterForm.code = landCodeItems[0].code || "";
     }
 
     setForm(afterForm);
   };
 
+  const handleSearch = () => {
+    alert("search!");
+  };
+
   const handleSave = () => {
-    setSearchFilter([...new Set([...searchFilter, form.code])]);
+    onAddFilter(form.code);
   };
 
   return (
     <SearchForm
       form={form}
+      isSavedSearchFilter={isSavedSearchFilter}
       landCodeItems={landCodeItems}
       onChange={handleChange}
+      onSearch={handleSearch}
       onSave={handleSave}
     />
   );
