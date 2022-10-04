@@ -1,5 +1,5 @@
 export const numberFormat = (number: number): string => {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
 export const getFlatSize = (areaSize: number): number => {
@@ -13,9 +13,6 @@ export const getTradeAmount = (originAmount: number): number => {
   return Math.round((originAmount / 100000000) * 10) / 10;
 };
 
-export const getAverageAmount = (
-  tradeAmount: number,
-  flatSize: number
-): number => {
+export const getAverageAmount = (tradeAmount: number, flatSize: number): number => {
   return Math.floor(tradeAmount / flatSize / 10000);
 };

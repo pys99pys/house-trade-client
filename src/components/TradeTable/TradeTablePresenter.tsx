@@ -1,25 +1,17 @@
-import { FC } from "react";
-import { FaChevronDown } from "react-icons/fa";
-import { TradeItem } from "../../models/TradeItem";
-import {
-  getAverageAmount,
-  getFlatSize,
-  getTradeAmount,
-  numberFormat,
-} from "../../utils/formatter";
-import Button from "../../elements/Button";
-import IconPresenter from "../../elements/Icon/IconPresenter";
-import css from "./TradeTable.module.css";
+import { FC } from 'react';
+import { FaChevronDown } from 'react-icons/fa';
+import { TradeItem } from '../../models/TradeItem';
+import { getAverageAmount, getFlatSize, getTradeAmount, numberFormat } from '../../utils/formatter';
+import Button from '../../elements/Button';
+import IconPresenter from '../../elements/Icon/IconPresenter';
+import css from './TradeTable.module.css';
 
 interface TradeTablePresenterProps {
   isLoading: boolean;
   items: TradeItem[];
 }
 
-const TradeTablePresenter: FC<TradeTablePresenterProps> = ({
-  isLoading,
-  items,
-}) => {
+const TradeTablePresenter: FC<TradeTablePresenterProps> = ({ isLoading, items }) => {
   return (
     <div className={css.tradeTable}>
       <div className={css.tableHeader}>
@@ -55,8 +47,7 @@ const TradeTablePresenter: FC<TradeTablePresenterProps> = ({
               <td>{item.apartName}</td>
               <td>
                 <div>
-                  {getFlatSize(item.areaSize)}평{" "}
-                  <small>({item.areaSize}㎡)</small>
+                  {getFlatSize(item.areaSize)}평 <small>({item.areaSize}㎡)</small>
                 </div>
               </td>
               <td>{item.floor}</td>
@@ -65,13 +56,7 @@ const TradeTablePresenter: FC<TradeTablePresenterProps> = ({
                 <div>
                   {getTradeAmount(item.tradeAmount)}억원
                   <small>
-                    (
-                    {numberFormat(
-                      getAverageAmount(
-                        item.tradeAmount,
-                        getFlatSize(item.areaSize)
-                      )
-                    )}
+                    ({numberFormat(getAverageAmount(item.tradeAmount, getFlatSize(item.areaSize)))}
                     만원/평)
                   </small>
                 </div>
@@ -81,7 +66,7 @@ const TradeTablePresenter: FC<TradeTablePresenterProps> = ({
                   size="small"
                   color="yellow"
                   onClick={() => {
-                    alert("구현중");
+                    alert('구현중');
                   }}
                 >
                   추가

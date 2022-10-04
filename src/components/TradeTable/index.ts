@@ -1,1 +1,1 @@
-export { default } from "./TradeTableContainer";
+export { default } from './TradeTableContainer';

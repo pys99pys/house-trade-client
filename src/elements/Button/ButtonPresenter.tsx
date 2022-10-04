@@ -1,11 +1,11 @@
-import { FC, ReactNode } from "react";
-import cx from "classnames";
-import css from "./Button.module.css";
+import { FC, ReactNode } from 'react';
+import cx from 'classnames';
+import css from './Button.module.css';
 
 interface ButtonPresenterProps {
-  type?: "submit" | "button";
-  size?: "default" | "large" | "small";
-  color?: "default" | "primary" | "yellow";
+  type?: 'submit' | 'button';
+  size?: 'default' | 'large' | 'small';
+  color?: 'default' | 'primary' | 'yellow';
   disabled?: boolean;
   icon?: ReactNode;
   children?: ReactNode;
@@ -13,9 +13,9 @@ interface ButtonPresenterProps {
 }
 
 const ButtonPresenter: FC<ButtonPresenterProps> = ({
-  type = "button",
-  size = "default",
-  color = "default",
+  type = 'button',
+  size = 'default',
+  color = 'default',
   disabled = false,
   icon,
   children,
@@ -26,10 +26,10 @@ const ButtonPresenter: FC<ButtonPresenterProps> = ({
       type={type}
       disabled={disabled}
       className={cx(css.button, {
-        [css.small]: size === "small",
+        [css.small]: size === 'small',
         [css.disabled]: disabled,
-        [css.primary]: color === "primary",
-        [css.yellow]: color === "yellow",
+        [css.primary]: color === 'primary',
+        [css.yellow]: color === 'yellow',
       })}
       onClick={onClick}
     >

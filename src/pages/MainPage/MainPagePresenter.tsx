@@ -1,8 +1,8 @@
-import { FC } from "react";
-import SearchForm from "../../components/SearchForm";
-import SearchFilter from "../../components/SearchFilter";
-import TradeTable from "../../components/TradeTable";
-import css from "./MainPage.module.css";
+import { FC } from 'react';
+import SearchForm from '../../components/SearchForm';
+import SearchFilter from '../../components/SearchFilter';
+import TradeTable from '../../components/TradeTable';
+import css from './MainPage.module.css';
 
 interface MainPagePresenterProps {}
 

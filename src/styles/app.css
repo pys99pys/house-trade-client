@@ -1,5 +1,5 @@
-@import "./reset.css";
-@import "./variables.css";
+@import './reset.css';
+@import './variables.css';
 
 * {
   box-sizing: border-box;
@@ -13,7 +13,7 @@ body,
 input,
 select,
 button {
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 1rem;
   color: var(--color-black);
 }

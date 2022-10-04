@@ -1,15 +1,11 @@
-import { FC, useMemo } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { SearchForm } from "../../models/SearchForm";
-import { LandCodeChildren } from "../../models/LandCode";
-import {
-  searchFiltersState,
-  searchFormState,
-  searchTargetState,
-} from "../../stores/mainPageStore";
-import landCodes from "../../jsons/landCodes.json";
-import SearchFormPresenter from "./SearchFormPresenter";
-import { setStorageData } from "../../utils/searchFilter";
+import { FC, useMemo } from 'react';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { SearchForm } from '../../models/SearchForm';
+import { LandCodeChildren } from '../../models/LandCode';
+import { searchFiltersState, searchFormState, searchTargetState } from '../../stores/mainPageStore';
+import landCodes from '../../jsons/landCodes.json';
+import SearchFormPresenter from './SearchFormPresenter';
+import { setStorageData } from '../../utils/searchFilter';
 
 interface SearchFormContainerProps {}
 
@@ -21,28 +17,22 @@ const SearchFormContainer: FC<SearchFormContainerProps> = () => {
   const [searchFilters, setSearchFilters] = useRecoilState(searchFiltersState);
   const setSearchTarget = useSetRecoilState(searchTargetState);
 
-  const landCodeItems = useMemo(
-    () => getLandCodeItems(searchForm.cityName),
-    [searchForm.cityName]
-  );
+  const landCodeItems = useMemo(() => getLandCodeItems(searchForm.cityName), [searchForm.cityName]);
 
   const isSavedSearchFilter = useMemo(
     () => searchFilters.some((filter) => filter === searchForm.code),
     [searchForm.code, searchFilters]
   );
 
-  const handleChange = (
-    key: keyof SearchForm,
-    value: SearchForm[keyof SearchForm]
-  ) => {
+  const handleChange = (key: keyof SearchForm, value: SearchForm[keyof SearchForm]) => {
     const afterForm = {
       ...searchForm,
       [key]: value,
     };
 
-    if (key === "cityName") {
+    if (key === 'cityName') {
       const landCodeItems = getLandCodeItems(afterForm.cityName);
-      afterForm.code = landCodeItems[0].code || "";
+      afterForm.code = landCodeItems[0].code || '';
     }
 
     setSearchForm(afterForm);
@@ -50,7 +40,7 @@ const SearchFormContainer: FC<SearchFormContainerProps> = () => {
 
   const handleSearch = () => {
     setSearchTarget({
-      tradeMonth: Number(searchForm.year + searchForm.month.padStart(2, "0")),
+      tradeMonth: Number(searchForm.year + searchForm.month.padStart(2, '0')),
       stateCode: Number(searchForm.code),
     });
   };

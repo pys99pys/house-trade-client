@@ -1,6 +1,6 @@
-import { FC } from "react";
-import { useTradeItemsQuery } from "../../queries/getTradeItemsQuery";
-import TradeTablePresenter from "./TradeTablePresenter";
+import { FC } from 'react';
+import { useTradeItemsQuery } from '../../queries/getTradeItemsQuery';
+import TradeTablePresenter from './TradeTablePresenter';
 
 interface TradeTableContainerProps {}
 

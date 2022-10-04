@@ -1,9 +1,9 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { RecoilRoot } from "recoil";
-import Layout from "./layouts/AppLayout";
-import MainPage from "./pages/MainPage";
-import "./styles/app.css";
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
+import Layout from './layouts/AppLayout';
+import MainPage from './pages/MainPage';
+import './styles/app.css';
 
 const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
