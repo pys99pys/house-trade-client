@@ -1,13 +1,12 @@
 import { FC, useMemo } from "react";
-import { useRecoilState } from "recoil";
-import { useSearchFilterStore } from "../stores/searchFilterStore";
-import { searchFormState } from "../stores/searchFormStore";
-import { getCityItem, getCodeItem } from "../utils/searchFilter";
-import SearchFilter from "../components/SearchFilter";
+import { useSearchFilterStore } from "../../stores/searchFilterStore";
+import { useSearchFormStore } from "../../stores/searchFormStore";
+import { getCityItem, getCodeItem } from "../../utils/searchFilter";
+import SearchFilterPresenter from "./SearchFilterPresenter";
 
 const SearchFilterContainer: FC = () => {
-  const [searchForm, setSearchForm] = useRecoilState(searchFormState);
   const { searchFilters, onRemoveFilter } = useSearchFilterStore();
+  const { searchForm, setSearchForm } = useSearchFormStore();
 
   const handleClick = (code: string) => {
     const cityItem = getCityItem(code);
@@ -40,7 +39,7 @@ const SearchFilterContainer: FC = () => {
   );
 
   return (
-    <SearchFilter
+    <SearchFilterPresenter
       items={filterItems}
       onSelect={handleClick}
       onRemove={onRemoveFilter}

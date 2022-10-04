@@ -1,17 +1,21 @@
 import { FC } from "react";
 import { FaTimes } from "react-icons/fa";
-import { SearchFilterItem } from "../models/SearchFilter";
-import Button from "./Button";
-import Icon from "./Icon";
+import { SearchFilterItem } from "../../models/SearchFilter";
+import Button from "../../elements/Button";
+import IconPresenter from "../../elements/Icon/IconPresenter";
 import css from "./SearchFilter.module.css";
 
-interface SearchFilterProps {
+interface SearchFilterPresenterProps {
   items: SearchFilterItem[];
   onSelect: (code: string) => void;
   onRemove: (code: string) => void;
 }
 
-const SearchFilter: FC<SearchFilterProps> = ({ items, onSelect, onRemove }) => {
+const SearchFilterPresenter: FC<SearchFilterPresenterProps> = ({
+  items,
+  onSelect,
+  onRemove,
+}) => {
   return (
     <ul className={css.searchFilter}>
       {items.map((item) => (
@@ -24,7 +28,7 @@ const SearchFilter: FC<SearchFilterProps> = ({ items, onSelect, onRemove }) => {
                 onRemove(item.code);
               }}
             >
-              <Icon icon={<FaTimes />} />
+              <IconPresenter icon={<FaTimes />} />
             </span>
           </Button>
         </li>
@@ -33,4 +37,4 @@ const SearchFilter: FC<SearchFilterProps> = ({ items, onSelect, onRemove }) => {
   );
 };
 
-export default SearchFilter;
+export default SearchFilterPresenter;

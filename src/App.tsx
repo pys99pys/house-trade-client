@@ -1,9 +1,8 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { RecoilRoot } from "recoil";
-import Layout from "./components/Layout";
-import SearchFilterContainer from "./containers/SearchFilterContainer";
-import SearchFormContainer from "./containers/SearchFormContainer";
-import TableContainer from "./containers/TableContainer";
+import Layout from "./layouts/AppLayout";
+import MainPage from "./pages/MainPage";
 import "./styles/app.css";
 
 const apolloClient = new ApolloClient({
@@ -15,11 +14,13 @@ function App() {
   return (
     <ApolloProvider client={apolloClient}>
       <RecoilRoot>
-        <Layout
-          searchForm={<SearchFormContainer />}
-          searchFilter={<SearchFilterContainer />}
-          table={<TableContainer />}
-        />
+        <Layout>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+            </Routes>
+          </BrowserRouter>
+        </Layout>
       </RecoilRoot>
     </ApolloProvider>
   );

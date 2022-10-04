@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 import cx from "classnames";
 import css from "./Button.module.css";
 
-interface ButtonProps {
+interface ButtonPresenterProps {
   type?: "submit" | "button";
   size?: "default" | "large" | "small";
   color?: "default" | "primary" | "yellow";
@@ -12,7 +12,7 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-const Button: FC<ButtonProps> = ({
+const ButtonPresenter: FC<ButtonPresenterProps> = ({
   type = "button",
   size = "default",
   color = "default",
@@ -39,4 +39,4 @@ const Button: FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+export default ButtonPresenter;

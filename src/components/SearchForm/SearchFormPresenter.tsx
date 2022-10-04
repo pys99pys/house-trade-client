@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { FaSearch, FaBookmark, FaRegBookmark } from "react-icons/fa";
-import { SearchForm as SearchFormType } from "../models/SearchForm";
-import Button from "./Button";
+import { SearchForm as SearchFormType } from "../../models/SearchForm";
+import Button from "../../elements/Button";
 import css from "./SearchForm.module.css";
 
-interface SearchFormProps {
+interface SearchFormPresenterProps {
   form: SearchFormType;
   isSavedSearchFilter: boolean;
   landCodeItems: {
@@ -19,7 +19,7 @@ interface SearchFormProps {
   onSave: () => void;
 }
 
-const SearchForm: FC<SearchFormProps> = ({
+const SearchFormPresenter: FC<SearchFormPresenterProps> = ({
   form,
   isSavedSearchFilter,
   landCodeItems,
@@ -86,4 +86,4 @@ const SearchForm: FC<SearchFormProps> = ({
   );
 };
 
-export default SearchForm;
+export default SearchFormPresenter;
