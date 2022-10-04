@@ -1,10 +1,15 @@
 import { FC, useMemo } from "react";
-import { SearchForm as SearchFormType } from "../../models/SearchForm";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { SearchForm } from "../../models/SearchForm";
 import { LandCodeChildren } from "../../models/LandCode";
-import { useSearchFormStore } from "../../stores/searchFormStore";
-import { useSearchFilterStore } from "../../stores/searchFilterStore";
+import {
+  searchFiltersState,
+  searchFormState,
+  searchTargetState,
+} from "../../stores/mainPageStore";
 import landCodes from "../../jsons/landCodes.json";
 import SearchFormPresenter from "./SearchFormPresenter";
+import { setStorageData } from "../../utils/searchFilter";
 
 interface SearchFormContainerProps {}
 
@@ -12,8 +17,9 @@ const getLandCodeItems = (cityName: string): LandCodeChildren[] =>
   landCodes.find((item) => item.name === cityName)?.children || [];
 
 const SearchFormContainer: FC<SearchFormContainerProps> = () => {
-  const { searchForm, setIsSearched, setSearchForm } = useSearchFormStore();
-  const { searchFilters, onAddFilter } = useSearchFilterStore();
+  const [searchForm, setSearchForm] = useRecoilState(searchFormState);
+  const [searchFilters, setSearchFilters] = useRecoilState(searchFiltersState);
+  const setSearchTarget = useSetRecoilState(searchTargetState);
 
   const landCodeItems = useMemo(
     () => getLandCodeItems(searchForm.cityName),
@@ -26,11 +32,9 @@ const SearchFormContainer: FC<SearchFormContainerProps> = () => {
   );
 
   const handleChange = (
-    key: keyof SearchFormType,
-    value: SearchFormType[keyof SearchFormType]
+    key: keyof SearchForm,
+    value: SearchForm[keyof SearchForm]
   ) => {
-    setIsSearched(false);
-
     const afterForm = {
       ...searchForm,
       [key]: value,
@@ -45,11 +49,15 @@ const SearchFormContainer: FC<SearchFormContainerProps> = () => {
   };
 
   const handleSearch = () => {
-    setIsSearched(true);
+    setSearchTarget({
+      tradeMonth: Number(searchForm.year + searchForm.month.padStart(2, "0")),
+      stateCode: Number(searchForm.code),
+    });
   };
 
   const handleSave = () => {
-    onAddFilter(searchForm.code);
+    const afterFilters = setStorageData(searchForm.code);
+    setSearchFilters(afterFilters);
   };
 
   return (

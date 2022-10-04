@@ -4,3 +4,8 @@ export interface SearchForm {
   cityName: string;
   code: string;
 }
+
+export interface SearchTarget {
+  tradeMonth: number;
+  stateCode: number;
+}

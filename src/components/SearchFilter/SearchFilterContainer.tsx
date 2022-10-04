@@ -1,14 +1,31 @@
-import { FC, useMemo } from "react";
-import { useSearchFilterStore } from "../../stores/searchFilterStore";
-import { useSearchFormStore } from "../../stores/searchFormStore";
-import { getCityItem, getCodeItem } from "../../utils/searchFilter";
-import SearchFilterPresenter from "./SearchFilterPresenter";
+import { FC, useMemo } from 'react';
+import { useRecoilState } from 'recoil';
+import { searchFiltersState, searchFormState } from '../../stores/mainPageStore';
+import { getCityItem, getCodeItem, removeStorageData } from '../../utils/searchFilter';
+import SearchFilterPresenter from './SearchFilterPresenter';
 
 const SearchFilterContainer: FC = () => {
-  const { searchFilters, onRemoveFilter } = useSearchFilterStore();
-  const { searchForm, setSearchForm } = useSearchFormStore();
+  const [searchFilters, setSearchFilters] = useRecoilState(searchFiltersState);
+  const [searchForm, setSearchForm] = useRecoilState(searchFormState);
 
-  const handleClick = (code: string) => {
+  const filterItems = useMemo(
+    () =>
+      searchFilters
+        .map((code) => {
+          const cityItem = getCityItem(code);
+          const codeItem = getCodeItem(code);
+
+          return {
+            code: codeItem?.code || '',
+            label: cityItem && codeItem ? `${cityItem.name} ${codeItem.name}` : '',
+          };
+        })
+        .filter((item) => item !== null)
+        .sort((a, b) => (a.label > b.label ? 1 : -1)),
+    [searchFilters]
+  );
+
+  const handleSelect = (code: string) => {
     const cityItem = getCityItem(code);
 
     if (cityItem) {
@@ -20,31 +37,12 @@ const SearchFilterContainer: FC = () => {
     }
   };
 
-  const filterItems = useMemo(
-    () =>
-      searchFilters
-        .map((code) => {
-          const cityItem = getCityItem(code);
-          const codeItem = getCodeItem(code);
+  const handleRemove = (code: string) => {
+    const afterFilter = removeStorageData(code);
+    setSearchFilters(afterFilter);
+  };
 
-          return {
-            code: codeItem?.code || "",
-            label:
-              cityItem && codeItem ? `${cityItem.name} ${codeItem.name}` : "",
-          };
-        })
-        .filter((item) => item !== null)
-        .sort((a, b) => (a.label > b.label ? 1 : -1)),
-    [searchFilters]
-  );
-
-  return (
-    <SearchFilterPresenter
-      items={filterItems}
-      onSelect={handleClick}
-      onRemove={onRemoveFilter}
-    />
-  );
+  return <SearchFilterPresenter items={filterItems} onSelect={handleSelect} onRemove={handleRemove} />;
 };
 
 export default SearchFilterContainer;
