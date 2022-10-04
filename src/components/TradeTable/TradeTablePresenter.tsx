@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { TradeItem } from '../../models/TradeItem';
-import { getAverageAmount, getFlatSize, getTradeAmount, numberFormat } from '../../utils/formatter';
+import { getAreaSize, getAverageAmount, getFlatSize, getTradeAmount, numberFormat } from '../../utils/formatter';
 import Button from '../../elements/Button';
 import IconPresenter from '../../elements/Icon/IconPresenter';
 import css from './TradeTable.module.css';
@@ -20,6 +20,16 @@ const TradeTablePresenter: FC<TradeTablePresenterProps> = ({ isLoading, items })
         </span>
       </div>
       <table className={css.table}>
+        <colgroup>
+          <col width="120" />
+          <col width="120" />
+          <col width="*" />
+          <col width="150" />
+          <col width="80" />
+          <col width="80" />
+          <col width="180" />
+          <col width="80" />
+        </colgroup>
         <thead>
           <tr>
             <th>
@@ -40,63 +50,51 @@ const TradeTablePresenter: FC<TradeTablePresenterProps> = ({ isLoading, items })
           </tr>
         </thead>
         <tbody>
-          {items.map((item, index) => (
-            <tr key={index}>
-              <td>{item.tradeDate}</td>
-              <td>{item.address}</td>
-              <td>{item.apartName}</td>
-              <td>
-                <div>
-                  {getFlatSize(item.areaSize)}평 <small>({item.areaSize}㎡)</small>
+          {isLoading && (
+            <tr>
+              <td colSpan={8}>
+                <div className={css.loadingWrap}>
+                  <span className={css.spinner} />
+                  데이터를 조회하고 있습니다.{' '}
                 </div>
-              </td>
-              <td>{item.floor}</td>
-              <td>{item.buildedYear}</td>
-              <td>
-                <div>
-                  {getTradeAmount(item.tradeAmount)}억원
-                  <small>
-                    ({numberFormat(getAverageAmount(item.tradeAmount, getFlatSize(item.areaSize)))}
-                    만원/평)
-                  </small>
-                </div>
-              </td>
-              <td>
-                <Button
-                  size="small"
-                  color="yellow"
-                  onClick={() => {
-                    alert('구현중');
-                  }}
-                >
-                  추가
-                </Button>
               </td>
             </tr>
-          ))}
-
-          <tr>
-            <td>2022-07-06</td>
-            <td>감이동</td>
-            <td>감일한라비발디</td>
-            <td>
-              <div>
-                34평 <small>(84.87㎡)</small>
-              </div>
-            </td>
-            <td>16</td>
-            <td>2019</td>
-            <td>
-              <div>
-                10.6억원<small>(3,117만원/평)</small>
-              </div>
-            </td>
-            <td>
-              <Button size="small" color="yellow">
-                추가
-              </Button>
-            </td>
-          </tr>
+          )}
+          {!isLoading &&
+            items.map((item, index) => (
+              <tr key={index}>
+                <td>{item.tradeDate}</td>
+                <td>{item.address}</td>
+                <td>{item.apartName}</td>
+                <td>
+                  <div>
+                    {getFlatSize(item.areaSize)}평 <small>({getAreaSize(item.areaSize)}㎡)</small>
+                  </div>
+                </td>
+                <td>{item.floor}</td>
+                <td>{item.buildedYear}</td>
+                <td>
+                  <div>
+                    {getTradeAmount(item.tradeAmount)}억원
+                    <small>
+                      ({numberFormat(getAverageAmount(item.tradeAmount, getFlatSize(item.areaSize)))}
+                      만원/평)
+                    </small>
+                  </div>
+                </td>
+                <td>
+                  <Button
+                    size="small"
+                    color="yellow"
+                    onClick={() => {
+                      alert('구현중');
+                    }}
+                  >
+                    추가
+                  </Button>
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

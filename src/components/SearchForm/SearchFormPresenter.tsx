@@ -1,17 +1,17 @@
 import { FC } from 'react';
 import { FaSearch, FaBookmark, FaRegBookmark } from 'react-icons/fa';
-import { SearchForm as SearchFormType } from '../../models/SearchForm';
+import { SearchForm } from '../../models/SearchForm';
 import Button from '../../elements/Button';
 import css from './SearchForm.module.css';
 
 interface SearchFormPresenterProps {
-  form: SearchFormType;
+  form: SearchForm;
   isSavedSearchFilter: boolean;
   landCodeItems: {
     code: string;
     name: string;
   }[];
-  onChange: (key: keyof SearchFormType, value: SearchFormType[keyof SearchFormType]) => void;
+  onChange: (key: keyof SearchForm, value: SearchForm[keyof SearchForm]) => void;
   onSearch: () => void;
   onSave: () => void;
 }

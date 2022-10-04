@@ -1,14 +1,25 @@
 import { FC } from 'react';
-import { useTradeItemsQuery } from '../../queries/getTradeItemsQuery';
+import { useQuery } from '@apollo/client';
+import { useRecoilValue } from 'recoil';
+import { searchTargetState } from '../../stores/mainPageStore';
+import { GET_TRADE_ITEMS_QUERY } from '../../queries/getTradeItemsQuery';
+import { TradeItem } from '../../models/TradeItem';
 import TradeTablePresenter from './TradeTablePresenter';
 
 interface TradeTableContainerProps {}
 
 const TradeTableContainer: FC<TradeTableContainerProps> = () => {
-  // const { isSearched, searchForm } = useSearchFormStore();
-  // const { loading, data } = useTradeItemsQuery(!isSearched, searchForm);
+  const searchTarget = useRecoilValue(searchTargetState);
 
-  return <TradeTablePresenter isLoading={false} items={[]} />;
+  const { loading, data } = useQuery<{ tradeItems: TradeItem[] }>(GET_TRADE_ITEMS_QUERY, {
+    variables: {
+      tradeMonth: searchTarget?.tradeMonth,
+      stateCode: searchTarget?.stateCode,
+    },
+    skip: searchTarget === null,
+  });
+
+  return <TradeTablePresenter isLoading={loading} items={data?.tradeItems || []} />;
 };
 
 export default TradeTableContainer;

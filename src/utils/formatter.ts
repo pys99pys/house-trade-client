@@ -9,6 +9,10 @@ export const getFlatSize = (areaSize: number): number => {
   return Math.floor(area + addtionalSize);
 };
 
+export const getAreaSize = (originSize: number): number => {
+  return Math.round(originSize * 100) / 100;
+};
+
 export const getTradeAmount = (originAmount: number): number => {
   return Math.round((originAmount / 100000000) * 10) / 10;
 };
