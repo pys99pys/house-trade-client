@@ -75,12 +75,8 @@
 }
 
 .tradeTable .table td {
-  padding: 1rem;
+  padding: 0.75rem;
   text-align: center;
-}
-
-.tradeTable .table td strong {
-  font-weight: 700;
 }
 
 .tradeTable .table td button {
@@ -94,10 +90,13 @@
   align-items: center;
 }
 
+.tradeTable .table td strong {
+  font-weight: 700;
+}
 .tradeTable .table td small {
   margin-left: 0.25rem;
   font-size: 0.85rem;
-  color: var(--color-gray3);
+  color: var(--color-gray2);
 }
 
 .tradeTable .table tr:nth-child(odd) td {
