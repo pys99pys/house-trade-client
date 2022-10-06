@@ -1,3 +1,5 @@
+import { TradeItem } from '../models/TradeItem';
+
 export const numberFormat = (number: number): string => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
@@ -17,6 +19,12 @@ export const getTradeAmount = (originAmount: number): number => {
   return Math.round((originAmount / 100000000) * 10) / 10;
 };
 
-export const getAverageAmount = (tradeAmount: number, flatSize: number): number => {
-  return Math.floor(tradeAmount / flatSize / 10000);
+export const getAverageAmount = (tradeAmount: number, areaSize: number): number => {
+  return Math.floor(tradeAmount / getFlatSize(areaSize) / 10000);
+};
+
+export const getAllAverageAmount = (items: TradeItem[]): number => {
+  const averageAmountSummary = items.reduce((sum, item) => sum + item.tradeAmount / getFlatSize(item.areaSize), 0);
+
+  return Math.floor(averageAmountSummary / items.length / 10000);
 };

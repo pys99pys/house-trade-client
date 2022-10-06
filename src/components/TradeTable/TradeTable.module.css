@@ -4,11 +4,17 @@
 
 .tradeTable .tableHeader {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
 }
 
 .tradeTable .tableHeader strong {
   font-weight: 700;
+}
+
+.tradeTable .tableHeader small {
+  margin-left: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--color-gray2);
 }
 
 .tradeTable .loadingWrap {

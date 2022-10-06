@@ -1,7 +1,14 @@
 import { FC } from 'react';
 import { FaChevronUp } from 'react-icons/fa';
 import { Sort, TradeItem } from '../../models/TradeItem';
-import { getAreaSize, getAverageAmount, getFlatSize, getTradeAmount, numberFormat } from '../../utils/formatter';
+import {
+  getAllAverageAmount,
+  getAreaSize,
+  getAverageAmount,
+  getFlatSize,
+  getTradeAmount,
+  numberFormat,
+} from '../../utils/formatter';
 import Button from '../../elements/Button';
 import IconPresenter from '../../elements/Icon/IconPresenter';
 import css from './TradeTable.module.css';
@@ -17,9 +24,8 @@ const TradeTablePresenter: FC<TradeTablePresenterProps> = ({ isLoading, sort, it
   return (
     <div className={css.tradeTable}>
       <div className={css.tableHeader}>
-        <span>
-          총 <strong>{numberFormat(items.length)}</strong>건
-        </span>
+        총 <strong>{numberFormat(items.length)}</strong>건
+        {items.length && <small>({numberFormat(getAllAverageAmount(items))}만원/평)</small>}
       </div>
       <table className={css.table}>
         <colgroup>
@@ -104,7 +110,7 @@ const TradeTablePresenter: FC<TradeTablePresenterProps> = ({ isLoading, sort, it
                   <div>
                     <strong>{getTradeAmount(item.tradeAmount)}억원</strong>
                     <small>
-                      ({numberFormat(getAverageAmount(item.tradeAmount, getFlatSize(item.areaSize)))}
+                      ({numberFormat(getAverageAmount(item.tradeAmount, item.areaSize))}
                       만원/평)
                     </small>
                   </div>
