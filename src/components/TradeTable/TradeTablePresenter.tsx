@@ -25,7 +25,7 @@ const TradeTablePresenter: FC<TradeTablePresenterProps> = ({ isLoading, sort, it
     <div className={css.tradeTable}>
       <div className={css.tableHeader}>
         총 <strong>{numberFormat(items.length)}</strong>건
-        {items.length && <small>({numberFormat(getAllAverageAmount(items))}만원/평)</small>}
+        {items.length ? <small>({numberFormat(getAllAverageAmount(items))}만원/평)</small> : null}
       </div>
       <table className={css.table}>
         <colgroup>
