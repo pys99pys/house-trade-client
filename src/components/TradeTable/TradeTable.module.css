@@ -12,7 +12,7 @@
 }
 
 .tradeTable .loadingWrap {
-  margin: 1.5rem 0;
+  margin: 2.5rem 0;
   padding: 1.5rem 0 0;
   display: flex;
   flex-direction: column;
@@ -41,19 +41,37 @@
 }
 
 .tradeTable .table th {
-  padding: 1.25rem 0;
   background-color: var(--color-gray8);
   font-weight: 500;
 }
 
-.tradeTable .table th div {
+.tradeTable .table th button {
+  width: 100%;
+  padding: 1.25rem 0;
   display: inline-flex;
+  justify-content: center;
   align-items: center;
+  border: none;
+  background-color: transparent;
+  transition: background-color 300ms ease;
 }
 
-.tradeTable .table th div span {
+.tradeTable .table th button:hover {
+  background-color: var(--color-gray7);
+  cursor: pointer;
+}
+
+.tradeTable .table th button span {
   margin-left: 0.25rem;
-  transform: translateY(1px);
+  transition: transform 300ms ease;
+}
+
+.tradeTable .table th button span.asc {
+  transform: translateY(1px) rotate(0);
+}
+
+.tradeTable .table th button span.desc {
+  transform: translateY(0) rotate(180deg);
 }
 
 .tradeTable .table td {

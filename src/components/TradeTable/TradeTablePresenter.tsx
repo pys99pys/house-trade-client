@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { FaChevronDown } from 'react-icons/fa';
-import { TradeItem } from '../../models/TradeItem';
+import { FaChevronUp } from 'react-icons/fa';
+import { Sort, TradeItem } from '../../models/TradeItem';
 import { getAreaSize, getAverageAmount, getFlatSize, getTradeAmount, numberFormat } from '../../utils/formatter';
 import Button from '../../elements/Button';
 import IconPresenter from '../../elements/Icon/IconPresenter';
@@ -8,10 +8,12 @@ import css from './TradeTable.module.css';
 
 interface TradeTablePresenterProps {
   isLoading: boolean;
+  sort: Sort;
   items: TradeItem[];
+  onClickTableHeader: (key: Sort[0]) => void;
 }
 
-const TradeTablePresenter: FC<TradeTablePresenterProps> = ({ isLoading, items }) => {
+const TradeTablePresenter: FC<TradeTablePresenterProps> = ({ isLoading, sort, items, onClickTableHeader }) => {
   return (
     <div className={css.tradeTable}>
       <div className={css.tableHeader}>
@@ -21,32 +23,57 @@ const TradeTablePresenter: FC<TradeTablePresenterProps> = ({ isLoading, items })
       </div>
       <table className={css.table}>
         <colgroup>
-          <col width="120" />
-          <col width="120" />
-          <col width="*" />
-          <col width="150" />
-          <col width="80" />
-          <col width="80" />
-          <col width="180" />
-          <col width="80" />
+          {['120', '120', '*', '150', '80', '80', '180', '80'].map((width, index) => (
+            <col key={index} width={width} />
+          ))}
         </colgroup>
         <thead>
           <tr>
-            <th>
-              <div>
-                거래일
-                <span>
-                  <IconPresenter icon={<FaChevronDown />} />
-                </span>
-              </div>
-            </th>
-            <th>주소</th>
-            <th>아파트명</th>
-            <th>평수</th>
-            <th>층</th>
-            <th>연식</th>
-            <th>거래금액</th>
-            <th>즐겨찾기</th>
+            {[
+              {
+                key: 'tradeDate',
+                label: '거래일',
+              },
+              {
+                key: 'address',
+                label: '주소',
+              },
+              {
+                key: 'apartName',
+                label: '아파트명',
+              },
+              {
+                key: 'areaSize',
+                label: '평수',
+              },
+              {
+                key: 'floor',
+                label: '층',
+              },
+              {
+                key: 'buildedYear',
+                label: '연식',
+              },
+              {
+                key: 'tradeAmount',
+                label: '거래금액',
+              },
+              {
+                key: 'favorite',
+                label: '즐겨찾기',
+              },
+            ].map((item) => (
+              <th key={item.key}>
+                <button onClick={() => onClickTableHeader(item.key as Sort[0])}>
+                  {item.label}
+                  {sort[0] === item.key && (
+                    <span className={css[sort[1]]}>
+                      <IconPresenter icon={<FaChevronUp />} />
+                    </span>
+                  )}
+                </button>
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
