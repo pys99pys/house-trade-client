@@ -42,7 +42,6 @@
 
 .tradeTable .table th {
   background-color: var(--color-gray8);
-  font-weight: 500;
 }
 
 .tradeTable .table th button {
@@ -53,6 +52,7 @@
   align-items: center;
   border: none;
   background-color: transparent;
+  font-weight: 500;
   transition: background-color 300ms ease;
 }
 
