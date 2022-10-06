@@ -102,7 +102,7 @@ const TradeTablePresenter: FC<TradeTablePresenterProps> = ({ isLoading, sort, it
                 <td>{item.buildedYear}</td>
                 <td>
                   <div>
-                    {getTradeAmount(item.tradeAmount)}억원
+                    <strong>{getTradeAmount(item.tradeAmount)}억원</strong>
                     <small>
                       ({numberFormat(getAverageAmount(item.tradeAmount, getFlatSize(item.areaSize)))}
                       만원/평)
